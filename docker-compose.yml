@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+    nginx:
+        container_name: laravel-shop_nginx
+        image: nginx:latest
+        volumes:
+            - ./:/var/www
+            - ./_docker/nginx/conf.d/:/etc/nginx/conf.d/
+        ports:
+            - "8888:80"
+        depends_on:
+            - app
+    app:
+        container_name: laravel-shop_app
+        build:
+            context: .
+            dockerfile: _docker/app/Dockerfile
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - db
+
+    db:
+        container_name: laravel-shop_db
+        image: mysql:8.0
+        restart: always
+        volumes:
+            - ./tmp/db:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: laravel-shop
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        ports:
+            - "4000:3306"
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+
+    phpmyadmin:
+        container_name: laravel-shop_phpMyAdmin
+        image: phpmyadmin/phpmyadmin:latest
+        ports:
+            - "8080:80"
+        environment:
+            PMA_HOST: ${DB_HOST}
+            PMA_USER: ${DB_USERNAME}
+            PMA_PASSWORD: ${DB_PASSWORD}
+        restart: always
+        depends_on:
+            - db
+        networks:
+            - default
