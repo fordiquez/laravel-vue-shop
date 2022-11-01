@@ -17,11 +17,11 @@ class UserSeeder extends Seeder
         User::factory()->create([
             'first_name' => 'Gerald',
             'last_name' => 'Ford',
-            'birthday_date' => '22.02.2022',
+            'birthday_date' => '2001-02-22',
             'gender' => 'male',
             'role_id' => 1,
             'email' => 'fordiquez@gmail.com',
-//            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' // fordiquez22
+            'password' => '$2y$10$Y.tltioAYrGTul6J8GeDoOqjv/98LM8iSj4PCIDsVYkE3KWFah.lC'
         ]);
         User::factory(10)->create();
     }

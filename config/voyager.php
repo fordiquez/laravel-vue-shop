@@ -15,6 +15,7 @@ return [
         'default_role'                 => 'user',
         'default_avatar'               => 'users/default.png',
         'redirect'                     => '/admin',
+        'namespace'                    => App\Models\User::class,
     ],
 
     /*
@@ -97,7 +98,7 @@ return [
 
     'multilingual' => [
         /*
-         * Set whether or not the multilingual is supported by the BREAD input.
+         * Set whether the multilingual is supported by the BREAD input.
          */
         'enabled' => false,
 
@@ -125,7 +126,7 @@ return [
     */
 
     'dashboard' => [
-        // Add custom list items to navbar's dropdown
+        // Add custom list items to navbar dropdown
         'navbar_items' => [
             'voyager::generic.profile' => [
                 'route'      => 'voyager.profile',
@@ -158,16 +159,16 @@ return [
     */
 
     'bread' => [
-        // When a BREAD is added, create the Menu item using the BREAD properties.
+        // When BREAD is added, create the Menu item using the BREAD properties.
         'add_menu_item' => true,
 
         // which menu add item to
         'default_menu' => 'admin',
 
-        // When a BREAD is added, create the related Permission.
+        // When BREAD is added, create the related Permission.
         'add_permission' => true,
 
-        // which role add premissions to
+        // which role add permissions to
         'default_role' => 'admin',
     ],
 
@@ -176,7 +177,7 @@ return [
     | UI Generic Config
     |--------------------------------------------------------------------------
     |
-    | Here you change some of the Voyager UI settings.
+    | Here you change some Voyager UI settings.
     |
     */
 

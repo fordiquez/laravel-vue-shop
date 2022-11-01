@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Notifications\SendVerifyWithQueueNotification;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends \TCG\Voyager\Models\User
+class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -42,4 +44,22 @@ class User extends \TCG\Voyager\Models\User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new SendVerifyWithQueueNotification());
+    }
+
+    public static function getGenders(): array
+    {
+        return [
+            'male' => 'Male',
+            'female' => 'Female'
+        ];
+    }
+
+    public function getGender(): string
+    {
+        return $this->gender == 'male' ? 'Male' : 'Female';
+    }
 }
