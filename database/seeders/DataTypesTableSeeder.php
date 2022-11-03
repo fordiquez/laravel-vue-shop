@@ -19,9 +19,9 @@ class DataTypesTableSeeder extends Seeder
                 'display_name_singular' => __('voyager::seeders.data_types.user.singular'),
                 'display_name_plural'   => __('voyager::seeders.data_types.user.plural'),
                 'icon'                  => 'voyager-person',
-                'model_name'            => 'TCG\\Voyager\\Models\\User',
+                'model_name'            => 'App\\Models\\User',
                 'policy_name'           => 'TCG\\Voyager\\Policies\\UserPolicy',
-                'controller'            => 'TCG\\Voyager\\Http\\Controllers\\VoyagerUserController',
+                'controller'            => 'App\\Http\\Controllers\\Voyager\\VoyagerUsersController',
                 'generate_permissions'  => 1,
                 'description'           => '',
             ])->save();
@@ -54,17 +54,29 @@ class DataTypesTableSeeder extends Seeder
                 'description'           => '',
             ])->save();
         }
+
+        $dataType = $this->dataType('slug', 'categories');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'categories',
+                'display_name_singular' => __('Category'),
+                'display_name_plural'   => __('Categories'),
+                'icon'                  => 'voyager-categories',
+                'model_name'            => 'App\\Models\\Category',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
     }
 
     /**
      * [dataType description].
      *
-     * @param [type] $field [description]
-     * @param [type] $for   [description]
-     *
-     * @return [type] [description]
+     * @param $field
+     * @param $for
+     * @return mixed [type] [description]
      */
-    protected function dataType($field, $for)
+    protected function dataType($field, $for): mixed
     {
         return DataType::firstOrNew([$field => $for]);
     }

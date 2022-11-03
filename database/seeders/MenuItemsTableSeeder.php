@@ -13,7 +13,7 @@ class MenuItemsTableSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $menu = Menu::where('name', 'admin')->firstOrFail();
 
@@ -35,17 +35,17 @@ class MenuItemsTableSeeder extends Seeder
 
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.media'),
+            'title'   => __('voyager::seeders.menu_items.roles'),
             'url'     => '',
-            'route'   => 'voyager.media.index',
+            'route'   => 'voyager.roles.index',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
                 'target'     => '_self',
-                'icon_class' => 'voyager-images',
+                'icon_class' => 'voyager-lock',
                 'color'      => null,
                 'parent_id'  => null,
-                'order'      => 5,
+                'order'      => 2,
             ])->save();
         }
 
@@ -67,17 +67,33 @@ class MenuItemsTableSeeder extends Seeder
 
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.roles'),
+            'title'   => __('Categories'),
             'url'     => '',
-            'route'   => 'voyager.roles.index',
+            'route'   => 'voyager.categories.index',
         ]);
         if (!$menuItem->exists) {
             $menuItem->fill([
                 'target'     => '_self',
-                'icon_class' => 'voyager-lock',
+                'icon_class' => 'voyager-categories',
                 'color'      => null,
                 'parent_id'  => null,
-                'order'      => 2,
+                'order'      => 4,
+            ])->save();
+        }
+
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('voyager::seeders.menu_items.media'),
+            'url'     => '',
+            'route'   => 'voyager.media.index',
+        ]);
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-images',
+                'color'      => null,
+                'parent_id'  => null,
+                'order'      => 5,
             ])->save();
         }
 
@@ -92,7 +108,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-tools',
                 'color'      => null,
                 'parent_id'  => null,
-                'order'      => 9,
+                'order'      => 6,
             ])->save();
         }
 
@@ -108,7 +124,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-list',
                 'color'      => null,
                 'parent_id'  => $toolsMenuItem->id,
-                'order'      => 10,
+                'order'      => 1,
             ])->save();
         }
 
@@ -124,7 +140,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-data',
                 'color'      => null,
                 'parent_id'  => $toolsMenuItem->id,
-                'order'      => 11,
+                'order'      => 2,
             ])->save();
         }
 
@@ -140,7 +156,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-compass',
                 'color'      => null,
                 'parent_id'  => $toolsMenuItem->id,
-                'order'      => 12,
+                'order'      => 3,
             ])->save();
         }
 
@@ -156,7 +172,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-bread',
                 'color'      => null,
                 'parent_id'  => $toolsMenuItem->id,
-                'order'      => 13,
+                'order'      => 4,
             ])->save();
         }
 
@@ -172,7 +188,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-settings',
                 'color'      => null,
                 'parent_id'  => null,
-                'order'      => 14,
+                'order'      => 7,
             ])->save();
         }
     }

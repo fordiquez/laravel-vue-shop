@@ -21,7 +21,7 @@ class StoreUserJob implements ShouldQueue
     /**
      * Create a new job instance.
      *
-     * @return void
+     * @param array $data
      */
     public function __construct(array $data)
     {

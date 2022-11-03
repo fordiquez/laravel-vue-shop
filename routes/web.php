@@ -23,6 +23,6 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('admin')->middleware('verified')->group(function () {
+Route::prefix('admin')->group(function () {
     Voyager::routes();
 });
