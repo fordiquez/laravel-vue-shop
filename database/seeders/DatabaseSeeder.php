@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             VoyagerDatabaseSeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
+            GoodStatusesSeeder::class,
+            GoodSeeder::class,
         ]);
     }
 }

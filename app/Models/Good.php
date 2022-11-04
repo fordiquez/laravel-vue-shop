@@ -20,6 +20,6 @@ class Good extends Model
         'old_price',
         'price',
         'quantity',
-        'status'
+        'status_id'
     ];
 }

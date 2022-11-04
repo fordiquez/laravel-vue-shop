@@ -83,6 +83,38 @@ class MenuItemsTableSeeder extends Seeder
 
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
+            'title'   => __('Good Statuses'),
+            'url'     => '',
+            'route'   => 'voyager.good-statuses.index',
+        ]);
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-activity',
+                'color'      => null,
+                'parent_id'  => null,
+                'order'      => 5,
+            ])->save();
+        }
+
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('Goods'),
+            'url'     => '',
+            'route'   => 'voyager.goods.index',
+        ]);
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-bag',
+                'color'      => null,
+                'parent_id'  => null,
+                'order'      => 6,
+            ])->save();
+        }
+
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
             'title'   => __('voyager::seeders.menu_items.media'),
             'url'     => '',
             'route'   => 'voyager.media.index',

@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\Category;
+use App\Models\Good;
+use App\Models\GoodStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -25,7 +27,7 @@ return new class extends Migration {
             $table->float('old_price')->nullable();
             $table->float('price');
             $table->integer('quantity')->default(0);
-            $table->enum('status', ['ready for dispatch', 'in stock', 'ends', 'is over', 'out of stock', 'discontinued']);
+            $table->foreignId('status_id')->constrained('good_statuses')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

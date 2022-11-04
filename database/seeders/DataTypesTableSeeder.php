@@ -67,6 +67,32 @@ class DataTypesTableSeeder extends Seeder
                 'description'           => '',
             ])->save();
         }
+
+        $dataType = $this->dataType('slug', 'good-statuses');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'good_statuses',
+                'display_name_singular' => __('Good Status'),
+                'display_name_plural'   => __('Good Statuses'),
+                'icon'                  => 'voyager-activity',
+                'model_name'            => 'App\\Models\\GoodStatus',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'goods');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'goods',
+                'display_name_singular' => __('Good'),
+                'display_name_plural'   => __('Goods'),
+                'icon'                  => 'voyager-bag',
+                'model_name'            => 'App\\Models\\Good',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
     }
 
     /**

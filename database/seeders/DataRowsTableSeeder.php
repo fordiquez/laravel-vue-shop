@@ -17,7 +17,38 @@ class DataRowsTableSeeder extends Seeder
         $menuDataType = DataType::where('slug', 'menus')->firstOrFail();
         $roleDataType = DataType::where('slug', 'roles')->firstOrFail();
         $categoryDataType = DataType::where('slug', 'categories')->firstOrFail();
+        $goodStatusDataType = DataType::where('slug', 'good-statuses')->firstOrFail();
+        $goodDataType = DataType::where('slug', 'goods')->firstOrFail();
 
+        $this->generateUserDataRows($userDataType);
+        $this->generateMenuDataRows($menuDataType);
+        $this->generateRoleDataRows($roleDataType);
+        $this->generateCategoryDataRows($categoryDataType);
+        $this->generateGoodStatusDataRows($goodStatusDataType);
+        $this->generateGoodDataRows($goodDataType);
+    }
+
+    /**
+     * [dataRow description].
+     *
+     * @param DataType $type
+     * @param string $field
+     * @return mixed [type] [description]
+     */
+    protected function dataRow(DataType $type, string $field): mixed
+    {
+        return DataRow::firstOrNew([
+            'data_type_id' => $type->id,
+            'field'        => $field,
+        ]);
+    }
+
+    /**
+     * @param DataType $userDataType
+     * @return void
+     */
+    protected function generateUserDataRows(DataType $userDataType): void
+    {
         $dataRow = $this->dataRow($userDataType, 'id');
         if (!$dataRow->exists) {
             $dataRow->fill([
@@ -314,15 +345,18 @@ class DataRowsTableSeeder extends Seeder
                 'order'        => 16,
             ])->save();
         }
+    }
 
+    protected function generateMenuDataRows(DataType $menuDataType): void
+    {
         $dataRow = $this->dataRow($menuDataType, 'id');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'number',
                 'display_name' => __('voyager::seeders.data_rows.id'),
                 'required'     => 1,
-                'browse'       => 0,
-                'read'         => 0,
+                'browse'       => 1,
+                'read'         => 1,
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
@@ -351,8 +385,8 @@ class DataRowsTableSeeder extends Seeder
                 'type'         => 'timestamp',
                 'display_name' => __('voyager::seeders.data_rows.created_at'),
                 'required'     => 0,
-                'browse'       => 0,
-                'read'         => 0,
+                'browse'       => 1,
+                'read'         => 1,
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
@@ -374,15 +408,18 @@ class DataRowsTableSeeder extends Seeder
                 'order'        => 4,
             ])->save();
         }
+    }
 
+    protected function generateRoleDataRows(DataType $roleDataType): void
+    {
         $dataRow = $this->dataRow($roleDataType, 'id');
         if (!$dataRow->exists) {
             $dataRow->fill([
                 'type'         => 'number',
                 'display_name' => __('voyager::seeders.data_rows.id'),
                 'required'     => 1,
-                'browse'       => 0,
-                'read'         => 0,
+                'browse'       => 1,
+                'read'         => 1,
                 'edit'         => 0,
                 'add'          => 0,
                 'delete'       => 0,
@@ -405,36 +442,6 @@ class DataRowsTableSeeder extends Seeder
             ])->save();
         }
 
-        $dataRow = $this->dataRow($roleDataType, 'created_at');
-        if (!$dataRow->exists) {
-            $dataRow->fill([
-                'type'         => 'timestamp',
-                'display_name' => __('voyager::seeders.data_rows.created_at'),
-                'required'     => 0,
-                'browse'       => 0,
-                'read'         => 0,
-                'edit'         => 0,
-                'add'          => 0,
-                'delete'       => 0,
-                'order'        => 3,
-            ])->save();
-        }
-
-        $dataRow = $this->dataRow($roleDataType, 'updated_at');
-        if (!$dataRow->exists) {
-            $dataRow->fill([
-                'type'         => 'timestamp',
-                'display_name' => __('voyager::seeders.data_rows.updated_at'),
-                'required'     => 0,
-                'browse'       => 0,
-                'read'         => 0,
-                'edit'         => 0,
-                'add'          => 0,
-                'delete'       => 0,
-                'order'        => 4,
-            ])->save();
-        }
-
         $dataRow = $this->dataRow($roleDataType, 'display_name');
         if (!$dataRow->exists) {
             $dataRow->fill([
@@ -450,6 +457,39 @@ class DataRowsTableSeeder extends Seeder
             ])->save();
         }
 
+        $dataRow = $this->dataRow($roleDataType, 'created_at');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'timestamp',
+                'display_name' => __('voyager::seeders.data_rows.created_at'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 0,
+                'add'          => 0,
+                'delete'       => 0,
+                'order'        => 3,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($roleDataType, 'updated_at');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'timestamp',
+                'display_name' => __('voyager::seeders.data_rows.updated_at'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 0,
+                'add'          => 0,
+                'delete'       => 0,
+                'order'        => 4,
+            ])->save();
+        }
+    }
+
+    protected function generateCategoryDataRows(DataType $categoryDataType): void
+    {
         $dataRow = $this->dataRow($categoryDataType, 'id');
         if (!$dataRow->exists) {
             $dataRow->fill([
@@ -623,19 +663,391 @@ class DataRowsTableSeeder extends Seeder
         }
     }
 
-    /**
-     * [dataRow description].
-     *
-     * @param [type] $type  [description]
-     * @param [type] $field [description]
-     *
-     * @return [type] [description]
-     */
-    protected function dataRow($type, $field)
+    protected function generateGoodStatusDataRows(DataType $goodStatusDataType): void
     {
-        return DataRow::firstOrNew([
-            'data_type_id' => $type->id,
-            'field'        => $field,
-        ]);
+        $dataRow = $this->dataRow($goodStatusDataType, 'id');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'number',
+                'display_name' => __('voyager::seeders.data_rows.id'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 0,
+                'add'          => 0,
+                'delete'       => 0,
+                'order'        => 1,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodStatusDataType, 'title');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'text',
+                'display_name' => __('Title'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['required', 'string']
+                    ]
+                ],
+                'order'        => 2,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodStatusDataType, 'created_at');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'timestamp',
+                'display_name' => __('voyager::seeders.data_rows.created_at'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 0,
+                'delete'       => 0,
+                'order'        => 3,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodStatusDataType, 'updated_at');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'timestamp',
+                'display_name' => __('voyager::seeders.data_rows.updated_at'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 0,
+                'add'          => 0,
+                'delete'       => 0,
+                'order'        => 4,
+            ])->save();
+        }
+    }
+
+    protected function generateGoodDataRows(DataType $goodDataType): void
+    {
+        $dataRow = $this->dataRow($goodDataType, 'id');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'number',
+                'display_name' => __('voyager::seeders.data_rows.id'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 0,
+                'add'          => 0,
+                'delete'       => 0,
+                'order'        => 1,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'vendor_code');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'number',
+                'display_name' => __('Vendor Code'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['required', 'integer', 'unique:goods']
+                    ]
+                ],
+                'order'        => 2,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'title');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'text',
+                'display_name' => __('Title'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['required', 'string']
+                    ]
+                ],
+                'order'        => 3,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'slug');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'text',
+                'display_name' => __('Slug'),
+                'required'     => 1,
+                'browse'       => 0,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['required', 'string', 'unique:goods']
+                    ]
+                ],
+                'order'        => 4,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'category_id');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'select_dropdown',
+                'display_name' => __('Category Id'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['required', 'integer', 'exists:categories,id']
+                    ]
+                ],
+                'order'        => 5,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'good_belongsto_category_relationship');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'relationship',
+                'display_name' => __('Category'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details'      => [
+                    'model'       => 'App\\Models\\Category',
+                    'table'       => 'categories',
+                    'type'        => 'belongsTo',
+                    'column'      => 'category_id',
+                    'key'         => 'id',
+                    'label'       => 'title',
+                    'pivot_table' => 'categories',
+                    'pivot'       => 0,
+                    'taggable'    => 0,
+                ],
+                'order'        => 6,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'description');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'markdown_editor',
+                'display_name' => __('Description'),
+                'required'     => 0,
+                'browse'       => 0,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['nullable', 'string']
+                    ]
+                ],
+                'order'        => 7,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'short_description');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'markdown_editor',
+                'display_name' => __('Short Description'),
+                'required'     => 0,
+                'browse'       => 0,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['nullable', 'string']
+                    ]
+                ],
+                'order'        => 8,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'warning_description');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'markdown_editor',
+                'display_name' => __('Warning Description'),
+                'required'     => 0,
+                'browse'       => 0,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['nullable', 'string']
+                    ]
+                ],
+                'order'        => 9,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'old_price');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'number',
+                'display_name' => __('Old Price'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['nullable', 'numeric']
+                    ]
+                ],
+                'order'        => 10,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'price');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'number',
+                'display_name' => __('Price'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['required', 'numeric']
+                    ]
+                ],
+                'order'        => 11,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'quantity');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'number',
+                'display_name' => __('Quantity'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['required', 'integer']
+                    ]
+                ],
+                'order'        => 12,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'status_id');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'select_dropdown',
+                'display_name' => __('Status Id'),
+                'required'     => 1,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details' => [
+                    'validation' => [
+                        'rule' => ['required', 'integer', 'exists:good_statuses,id']
+                    ]
+                ],
+                'order'        => 13,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'good_belongsto_good_status_relationship');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'relationship',
+                'display_name' => __('Status'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 1,
+                'delete'       => 1,
+                'details'      => [
+                    'model'       => 'App\\Models\\GoodStatus',
+                    'table'       => 'good_statuses',
+                    'type'        => 'belongsTo',
+                    'column'      => 'status_id',
+                    'key'         => 'id',
+                    'label'       => 'title',
+                    'pivot_table' => 'good_statuses',
+                    'pivot'       => 0,
+                    'taggable'    => 0,
+                ],
+                'order'        => 14,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'created_at');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'timestamp',
+                'display_name' => __('voyager::seeders.data_rows.created_at'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 1,
+                'add'          => 0,
+                'delete'       => 0,
+                'order'        => 15,
+            ])->save();
+        }
+
+        $dataRow = $this->dataRow($goodDataType, 'updated_at');
+        if (!$dataRow->exists) {
+            $dataRow->fill([
+                'type'         => 'timestamp',
+                'display_name' => __('voyager::seeders.data_rows.updated_at'),
+                'required'     => 0,
+                'browse'       => 1,
+                'read'         => 1,
+                'edit'         => 0,
+                'add'          => 0,
+                'delete'       => 0,
+                'order'        => 16,
+            ])->save();
+        }
     }
 }

@@ -36,5 +36,9 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('settings');
 
         Permission::generateFor('categories');
+
+        Permission::generateFor('good_statuses');
+
+        Permission::generateFor('goods');
     }
 }
