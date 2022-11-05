@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 /**
  * @extends Factory
  */
-class CategoryFactory extends Factory
+class TagFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,13 +18,10 @@ class CategoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->unique()->jobTitle(),
+            'title' => fake()->unique()->colorName(),
             'slug' => function (array $attributes) {
                 return Str::slug($attributes['title']);
-            },
-            'photo' => function (array $attributes) {
-                return $this->faker->loremflickr('categories', $attributes['slug']);
-            },
+            }
         ];
     }
 }

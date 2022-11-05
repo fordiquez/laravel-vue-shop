@@ -68,12 +68,25 @@ class DataTypesTableSeeder extends Seeder
             ])->save();
         }
 
+        $dataType = $this->dataType('slug', 'tags');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'tags',
+                'display_name_singular' => __('Tag'),
+                'display_name_plural'   => __('Tag'),
+                'icon'                  => 'voyager-tag',
+                'model_name'            => 'App\\Models\\Tag',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
         $dataType = $this->dataType('slug', 'good-statuses');
         if (!$dataType->exists) {
             $dataType->fill([
                 'name'                  => 'good_statuses',
-                'display_name_singular' => __('Good Status'),
-                'display_name_plural'   => __('Good Statuses'),
+                'display_name_singular' => __('Goods Status'),
+                'display_name_plural'   => __('Goods Statuses'),
                 'icon'                  => 'voyager-activity',
                 'model_name'            => 'App\\Models\\GoodStatus',
                 'generate_permissions'  => 1,
@@ -87,8 +100,21 @@ class DataTypesTableSeeder extends Seeder
                 'name'                  => 'goods',
                 'display_name_singular' => __('Good'),
                 'display_name_plural'   => __('Goods'),
-                'icon'                  => 'voyager-bag',
+                'icon'                  => 'voyager-shop',
                 'model_name'            => 'App\\Models\\Good',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'good-tag');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'good_tag',
+                'display_name_singular' => __('Goods Tag'),
+                'display_name_plural'   => __('Goods Tag'),
+                'icon'                  => 'voyager-bag',
+                'model_name'            => 'App\\Models\\GoodTag',
                 'generate_permissions'  => 1,
                 'description'           => '',
             ])->save();

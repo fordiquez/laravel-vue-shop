@@ -13,4 +13,6 @@ class GoodTag extends Model
         'good_id',
         'tag_id'
     ];
+
+    protected $table = 'good_tag';
 }

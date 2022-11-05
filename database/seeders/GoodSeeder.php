@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Good;
+use App\Models\Tag;
 use Illuminate\Database\Seeder;
 
 class GoodSeeder extends Seeder
@@ -14,6 +15,13 @@ class GoodSeeder extends Seeder
      */
     public function run(): void
     {
-        Good::factory(10)->create();
+        $tags = Tag::all();
+        $goods = Good::factory(10)->create();
+
+        if ($tags->count()) {
+            $goods->each(function ($good) use ($tags) {
+                $good->tags()->attach($tags->random(rand(1, $tags->count() > 1 ? $tags->count() / 2 : $tags->count()))->pluck('id')->toArray());
+            });
+        }
     }
 }
