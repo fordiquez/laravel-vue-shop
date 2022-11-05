@@ -20,8 +20,8 @@ class UserFactory extends Factory
         $gender = rand(0, 1) == 1 ? 'male' : 'female';
 
         return [
-            'first_name' => fake()->name($gender),
-            'last_name' => fake()->name($gender),
+            'first_name' => fake()->firstName($gender),
+            'last_name' => fake()->lastName(),
             'birthday_date' => fake()->dateTimeBetween('-30 years', '-18 years'),
             'gender' => $gender,
             'email' => fake()->unique()->safeEmail(),

@@ -27,6 +27,45 @@ class DataTypesTableSeeder extends Seeder
             ])->save();
         }
 
+        $dataType = $this->dataType('slug', 'order-recipients');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'order_recipients',
+                'display_name_singular' => __('Order Recipient'),
+                'display_name_plural'   => __('Order Recipients'),
+                'icon'                  => 'voyager-group',
+                'model_name'            => 'App\\Models\\OrderRecipient',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'user-addresses');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'user_addresses',
+                'display_name_singular' => __('User Address'),
+                'display_name_plural'   => __('User Addresses'),
+                'icon'                  => 'voyager-truck',
+                'model_name'            => 'App\\Models\\UserAddress',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'user-contacts');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'user_contacts',
+                'display_name_singular' => __('User Contact'),
+                'display_name_plural'   => __('User Contacts'),
+                'icon'                  => 'voyager-phone',
+                'model_name'            => 'App\\Models\\UserContact',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
         $dataType = $this->dataType('slug', 'menus');
         if (!$dataType->exists) {
             $dataType->fill([
@@ -73,7 +112,7 @@ class DataTypesTableSeeder extends Seeder
             $dataType->fill([
                 'name'                  => 'tags',
                 'display_name_singular' => __('Tag'),
-                'display_name_plural'   => __('Tag'),
+                'display_name_plural'   => __('Tags'),
                 'icon'                  => 'voyager-tag',
                 'model_name'            => 'App\\Models\\Tag',
                 'generate_permissions'  => 1,
@@ -112,8 +151,8 @@ class DataTypesTableSeeder extends Seeder
             $dataType->fill([
                 'name'                  => 'good_tag',
                 'display_name_singular' => __('Goods Tag'),
-                'display_name_plural'   => __('Goods Tag'),
-                'icon'                  => 'voyager-bag',
+                'display_name_plural'   => __('Goods Tags'),
+                'icon'                  => 'voyager-book',
                 'model_name'            => 'App\\Models\\GoodTag',
                 'generate_permissions'  => 1,
                 'description'           => '',

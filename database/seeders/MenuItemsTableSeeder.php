@@ -65,6 +65,70 @@ class MenuItemsTableSeeder extends Seeder
             ])->save();
         }
 
+        $usersMenuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('Users Items'),
+            'url'     => '',
+        ]);
+        if (!$usersMenuItem->exists) {
+            $usersMenuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-people',
+                'color'      => null,
+                'parent_id'  => null,
+                'order'      => 4,
+            ])->save();
+        }
+
+
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('Order Recipients'),
+            'url'     => '',
+            'route'   => 'voyager.order-recipients.index',
+        ]);
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-group',
+                'color'      => null,
+                'parent_id'  => $usersMenuItem->id,
+                'order'      => 1,
+            ])->save();
+        }
+
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('User Addresses'),
+            'url'     => '',
+            'route'   => 'voyager.user-addresses.index',
+        ]);
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-truck',
+                'color'      => null,
+                'parent_id'  => $usersMenuItem->id,
+                'order'      => 2,
+            ])->save();
+        }
+
+        $menuItem = MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __('User Contacts'),
+            'url'     => '',
+            'route'   => 'voyager.user-contacts.index',
+        ]);
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => '_self',
+                'icon_class' => 'voyager-phone',
+                'color'      => null,
+                'parent_id'  => $usersMenuItem->id,
+                'order'      => 3,
+            ])->save();
+        }
+
         $menuItem = MenuItem::firstOrNew([
             'menu_id' => $menu->id,
             'title'   => __('Categories'),
@@ -77,7 +141,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-categories',
                 'color'      => null,
                 'parent_id'  => null,
-                'order'      => 4,
+                'order'      => 5,
             ])->save();
         }
 
@@ -93,7 +157,7 @@ class MenuItemsTableSeeder extends Seeder
                 'icon_class' => 'voyager-tag',
                 'color'      => null,
                 'parent_id'  => null,
-                'order'      => 5,
+                'order'      => 6,
             ])->save();
         }
 

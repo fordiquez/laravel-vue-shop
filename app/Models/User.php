@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Notifications\SendVerifyWithQueueNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -25,6 +26,12 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
         'email',
         'password',
     ];
+
+    /**
+     * The additional attributes.
+     * @var string[]
+     */
+    public $additional_attributes = ['full_name'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -61,5 +68,25 @@ class User extends \TCG\Voyager\Models\User implements MustVerifyEmail
     public function getGender(): string
     {
         return $this->gender == 'male' ? 'Male' : 'Female';
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return "$this->first_name $this->last_name";
+    }
+
+    public function orderRecipients(): HasMany
+    {
+        return $this->hasMany(OrderRecipient::class);
+    }
+
+    public function userAddresses(): HasMany
+    {
+        return $this->hasMany(UserAddress::class);
+    }
+
+    public function userContacts(): HasMany
+    {
+        return $this->hasMany(UserContact::class);
     }
 }
