@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Promocode;
+use App\Models\PromoCode;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,7 +16,7 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('number')->unique();
+            $table->unsignedInteger('number')->unique();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->enum('delivery_method', [
                 'Courier',
@@ -36,10 +36,10 @@ return new class extends Migration {
                 'Credit and payment in installments',
                 'Issuance of loans in partner banks'
             ]);
-            $table->foreignIdFor(Promocode::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->integer('goods_cost');
-            $table->integer('delivery_cost')->nullable()->default(0);
-            $table->integer('total_cost');
+            $table->foreignIdFor(PromoCode::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->unsignedInteger('goods_cost');
+            $table->unsignedInteger('delivery_cost')->nullable()->default(0);
+            $table->unsignedInteger('total_cost');
             $table->timestamps();
         });
     }

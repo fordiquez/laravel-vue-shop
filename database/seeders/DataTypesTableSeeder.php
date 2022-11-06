@@ -158,6 +158,58 @@ class DataTypesTableSeeder extends Seeder
                 'description'           => '',
             ])->save();
         }
+
+        $dataType = $this->dataType('slug', 'good-images');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'good_images',
+                'display_name_singular' => __('Goods Image'),
+                'display_name_plural'   => __('Goods Images'),
+                'icon'                  => 'voyager-photos',
+                'model_name'            => 'App\\Models\\GoodImage',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'reviews');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'reviews',
+                'display_name_singular' => __('Review'),
+                'display_name_plural'   => __('Reviews'),
+                'icon'                  => 'voyager-chat',
+                'model_name'            => 'App\\Models\\Review',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'review-images');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'review_images',
+                'display_name_singular' => __('Review Image'),
+                'display_name_plural'   => __('Review Images'),
+                'icon'                  => 'voyager-upload',
+                'model_name'            => 'App\\Models\\ReviewImage',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'promo-codes');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'promo_codes',
+                'display_name_singular' => __('Promo Code'),
+                'display_name_plural'   => __('Promo Codes'),
+                'icon'                  => 'voyager-ticket',
+                'model_name'            => 'App\\Models\\PromoCode',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
     }
 
     /**

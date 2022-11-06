@@ -9,8 +9,9 @@ class SettingsTableSeeder extends Seeder
 {
     /**
      * Auto generated seed file.
+     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $setting = $this->findSetting('site.title');
         if (!$setting->exists) {
@@ -138,9 +139,9 @@ class SettingsTableSeeder extends Seeder
      *
      * @param [type] $key [description]
      *
-     * @return [type] [description]
+     * @return mixed [type] [description]
      */
-    protected function findSetting($key)
+    protected function findSetting($key): mixed
     {
         return Setting::firstOrNew(['key' => $key]);
     }

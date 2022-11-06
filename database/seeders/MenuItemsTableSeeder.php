@@ -9,6 +9,47 @@ use TCG\Voyager\Models\MenuItem;
 class MenuItemsTableSeeder extends Seeder
 {
     /**
+     * Create the new menu item.
+     * @param Menu $menu
+     * @param string $title
+     * @param string|null $route
+     * @param string|null $url
+     * @return mixed
+     */
+    protected function menuItem(Menu $menu, string $title, string $route = null, string $url = null): mixed
+    {
+        return MenuItem::firstOrNew([
+            'menu_id' => $menu->id,
+            'title'   => __($title),
+            'url'     => $url,
+            'route'   => $route
+        ]);
+    }
+
+    /**
+     * Filling menu item with data values.
+     * @param MenuItem $menuItem
+     * @param string $icon
+     * @param int $order
+     * @param int|null $parentId
+     * @param string $target
+     * @param string|null $color
+     * @return void
+     */
+    protected function fillMenuItem(MenuItem $menuItem, string $icon, int $order, int $parentId = null, string $target = '_self', string $color = null): void
+    {
+        if (!$menuItem->exists) {
+            $menuItem->fill([
+                'target'     => $target,
+                'icon_class' => $icon,
+                'color'      => $color,
+                'parent_id'  => $parentId,
+                'order'      => $order,
+            ])->save();
+        }
+    }
+
+    /**
      * Auto generated seed file.
      *
      * @return void
@@ -17,322 +58,76 @@ class MenuItemsTableSeeder extends Seeder
     {
         $menu = Menu::where('name', 'admin')->firstOrFail();
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.dashboard'),
-            'url'     => '',
-            'route'   => 'voyager.dashboard',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-boat',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 1,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.dashboard', 'voyager.dashboard');
+        $this->fillMenuItem($menuItem, 'voyager-boat', 1);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.roles'),
-            'url'     => '',
-            'route'   => 'voyager.roles.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-lock',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 2,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.roles', 'voyager.roles.index');
+        $this->fillMenuItem($menuItem, 'voyager-lock', 2);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.users'),
-            'url'     => '',
-            'route'   => 'voyager.users.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-person',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 3,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.users', 'voyager.users.index');
+        $this->fillMenuItem($menuItem, 'voyager-person', 3);
 
-        $usersMenuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('Users Items'),
-            'url'     => '',
-        ]);
-        if (!$usersMenuItem->exists) {
-            $usersMenuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-people',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 4,
-            ])->save();
-        }
+        $usersMenuItem = $this->menuItem($menu, 'Users Items');
+        $this->fillMenuItem($usersMenuItem, 'voyager-people', 4);
 
+        $menuItem = $this->menuItem($menu, 'Order Recipients', 'voyager.order-recipients.index');
+        $this->fillMenuItem($menuItem, 'voyager-group', 1, $usersMenuItem->id);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('Order Recipients'),
-            'url'     => '',
-            'route'   => 'voyager.order-recipients.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-group',
-                'color'      => null,
-                'parent_id'  => $usersMenuItem->id,
-                'order'      => 1,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'User Addresses', 'voyager.user-addresses.index');
+        $this->fillMenuItem($menuItem, 'voyager-truck', 2, $usersMenuItem->id);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('User Addresses'),
-            'url'     => '',
-            'route'   => 'voyager.user-addresses.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-truck',
-                'color'      => null,
-                'parent_id'  => $usersMenuItem->id,
-                'order'      => 2,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'User Contacts', 'voyager.user-contacts.index');
+        $this->fillMenuItem($menuItem, 'voyager-phone', 3, $usersMenuItem->id);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('User Contacts'),
-            'url'     => '',
-            'route'   => 'voyager.user-contacts.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-phone',
-                'color'      => null,
-                'parent_id'  => $usersMenuItem->id,
-                'order'      => 3,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'Categories', 'voyager.categories.index');
+        $this->fillMenuItem($menuItem, 'voyager-categories', 5);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('Categories'),
-            'url'     => '',
-            'route'   => 'voyager.categories.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-categories',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 5,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'Tags', 'voyager.tags.index');
+        $this->fillMenuItem($menuItem, 'voyager-tag', 6);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('Tags'),
-            'url'     => '',
-            'route'   => 'voyager.tags.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-tag',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 6,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'Goods', 'voyager.goods.index');
+        $this->fillMenuItem($menuItem, 'voyager-shop', 7);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('Goods'),
-            'url'     => '',
-            'route'   => 'voyager.goods.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-shop',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 7,
-            ])->save();
-        }
+        $goodsMenuItem = $this->menuItem($menu, 'Goods Items');
+        $this->fillMenuItem($goodsMenuItem, 'voyager-bag', 8);
 
-        $goodsMenuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('Goods Items'),
-            'url'     => '',
-        ]);
-        if (!$goodsMenuItem->exists) {
-            $goodsMenuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-bag',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 8,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'Goods Statuses', 'voyager.good-statuses.index');
+        $this->fillMenuItem($menuItem, 'voyager-activity', 1, $goodsMenuItem->id);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('Goods Statuses'),
-            'url'     => '',
-            'route'   => 'voyager.good-statuses.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-activity',
-                'color'      => null,
-                'parent_id'  => $goodsMenuItem->id,
-                'order'      => 1,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'Goods Tags', 'voyager.good-tag.index');
+        $this->fillMenuItem($menuItem, 'voyager-book', 2, $goodsMenuItem->id);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('Goods Tags'),
-            'url'     => '',
-            'route'   => 'voyager.good-tag.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-book',
-                'color'      => null,
-                'parent_id'  => $goodsMenuItem->id,
-                'order'      => 2,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'Goods Images', 'voyager.good-images.index');
+        $this->fillMenuItem($menuItem, 'voyager-photos', 3, $goodsMenuItem->id);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.media'),
-            'url'     => '',
-            'route'   => 'voyager.media.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-images',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 9,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'Reviews', 'voyager.reviews.index');
+        $this->fillMenuItem($menuItem, 'voyager-chat', 4, $goodsMenuItem->id);
 
-        $toolsMenuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.tools'),
-            'url'     => '',
-        ]);
-        if (!$toolsMenuItem->exists) {
-            $toolsMenuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-tools',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 10,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'Review Images', 'voyager.review-images.index');
+        $this->fillMenuItem($menuItem, 'voyager-upload', 4, $goodsMenuItem->id);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.menu_builder'),
-            'url'     => '',
-            'route'   => 'voyager.menus.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-list',
-                'color'      => null,
-                'parent_id'  => $toolsMenuItem->id,
-                'order'      => 1,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'Promo Codes', 'voyager.promo-codes.index');
+        $this->fillMenuItem($menuItem, 'voyager-ticket', 9);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.database'),
-            'url'     => '',
-            'route'   => 'voyager.database.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-data',
-                'color'      => null,
-                'parent_id'  => $toolsMenuItem->id,
-                'order'      => 2,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.media', 'voyager.media.index');
+        $this->fillMenuItem($menuItem, 'voyager-images', 10);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.compass'),
-            'url'     => '',
-            'route'   => 'voyager.compass.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-compass',
-                'color'      => null,
-                'parent_id'  => $toolsMenuItem->id,
-                'order'      => 3,
-            ])->save();
-        }
+        $toolsMenuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.tools');
+        $this->fillMenuItem($toolsMenuItem, 'voyager-tools', 11);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.bread'),
-            'url'     => '',
-            'route'   => 'voyager.bread.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-bread',
-                'color'      => null,
-                'parent_id'  => $toolsMenuItem->id,
-                'order'      => 4,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.menu_builder', 'voyager.menus.index');
+        $this->fillMenuItem($menuItem, 'voyager-list', 1, $toolsMenuItem->id);
 
-        $menuItem = MenuItem::firstOrNew([
-            'menu_id' => $menu->id,
-            'title'   => __('voyager::seeders.menu_items.settings'),
-            'url'     => '',
-            'route'   => 'voyager.settings.index',
-        ]);
-        if (!$menuItem->exists) {
-            $menuItem->fill([
-                'target'     => '_self',
-                'icon_class' => 'voyager-settings',
-                'color'      => null,
-                'parent_id'  => null,
-                'order'      => 11,
-            ])->save();
-        }
+        $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.database', 'voyager.database.index');
+        $this->fillMenuItem($menuItem, 'voyager-data', 2, $toolsMenuItem->id);
+
+        $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.compass', 'voyager.compass.index');
+        $this->fillMenuItem($menuItem, 'voyager-compass', 3, $toolsMenuItem->id);
+
+        $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.bread', 'voyager.bread.index');
+        $this->fillMenuItem($menuItem, 'voyager-bread', 4, $toolsMenuItem->id);
+
+        $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.settings', 'voyager.settings.index');
+        $this->fillMenuItem($menuItem, 'voyager-settings', 12);
     }
 }

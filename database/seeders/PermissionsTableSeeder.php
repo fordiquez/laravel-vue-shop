@@ -9,8 +9,9 @@ class PermissionsTableSeeder extends Seeder
 {
     /**
      * Auto generated seed file.
+     * @return void
      */
-    public function run()
+    public function run(): void
     {
         $keys = [
             'browse_admin',
@@ -50,5 +51,13 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('user_addresses');
 
         Permission::generateFor('user_contacts');
+
+        Permission::generateFor('good_images');
+
+        Permission::generateFor('reviews');
+
+        Permission::generateFor('review_images');
+
+        Permission::generateFor('promo_codes');
     }
 }

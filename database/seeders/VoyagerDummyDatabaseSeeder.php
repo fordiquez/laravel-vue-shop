@@ -2,7 +2,11 @@
 
 namespace Database\Seeders;
 
+use CategoriesTableSeeder;
 use Illuminate\Database\Seeder;
+use PagesTableSeeder;
+use PostsTableSeeder;
+use UsersTableSeeder;
 
 class VoyagerDummyDatabaseSeeder extends Seeder
 {
@@ -11,7 +15,7 @@ class VoyagerDummyDatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         $this->call([
             CategoriesTableSeeder::class,

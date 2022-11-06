@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Good extends Model
 {
@@ -27,5 +28,15 @@ class Good extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(GoodTag::class, 'good_tag', 'good_id', 'tag_id');
+    }
+
+    public function goodImages(): HasMany
+    {
+        return $this->hasMany(GoodImage::class);
+    }
+
+    public function reviews(): HasMany
+    {
+        return $this->hasMany(Review::class);
     }
 }

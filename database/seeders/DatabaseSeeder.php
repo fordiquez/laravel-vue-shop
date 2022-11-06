@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             GoodStatusesSeeder::class,
             GoodSeeder::class,
+            PromoCodeSeeder::class,
         ]);
     }
 }

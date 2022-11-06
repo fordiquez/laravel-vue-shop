@@ -26,7 +26,7 @@ return new class extends Migration {
             $table->text('warning_description')->nullable();
             $table->float('old_price')->nullable();
             $table->float('price');
-            $table->integer('quantity')->default(0);
+            $table->unsignedInteger('quantity')->default(0);
             $table->foreignId('status_id')->constrained('good_statuses')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

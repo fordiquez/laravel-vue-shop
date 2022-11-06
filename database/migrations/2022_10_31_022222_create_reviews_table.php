@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->text('description');
             $table->tinyText('advantages');
             $table->tinyText('disadvantages');
-            $table->tinyInteger('rating');
+            $table->unsignedTinyInteger('rating');
             $table->string('video_src')->nullable();
             $table->timestamps();
         });
