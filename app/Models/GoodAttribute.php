@@ -5,14 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GoodUser extends Model
+class GoodAttribute extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'good_id',
-        'user_id'
-    ];
-
-    protected $table = 'good_user';
+    protected $table = 'good_attribute';
 }

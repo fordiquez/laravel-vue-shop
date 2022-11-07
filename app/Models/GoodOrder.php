@@ -13,4 +13,6 @@ class GoodOrder extends Model
         'good_id',
         'order_id'
     ];
+
+    protected $table = 'good_order';
 }

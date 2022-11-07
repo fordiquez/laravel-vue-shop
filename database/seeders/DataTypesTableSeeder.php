@@ -210,6 +210,45 @@ class DataTypesTableSeeder extends Seeder
                 'description'           => '',
             ])->save();
         }
+
+        $dataType = $this->dataType('slug', 'orders');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'orders',
+                'display_name_singular' => __('Order'),
+                'display_name_plural'   => __('Orders'),
+                'icon'                  => 'voyager-basket',
+                'model_name'            => 'App\\Models\\Order',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'order-histories');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'order_histories',
+                'display_name_singular' => __('Order History'),
+                'display_name_plural'   => __('Order Histories'),
+                'icon'                  => 'voyager-calendar',
+                'model_name'            => 'App\\Models\\OrderHistory',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'attributes');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'attributes',
+                'display_name_singular' => __('Attribute'),
+                'display_name_plural'   => __('Attributes'),
+                'icon'                  => 'voyager-params',
+                'model_name'            => 'App\\Models\\Attribute',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
     }
 
     /**

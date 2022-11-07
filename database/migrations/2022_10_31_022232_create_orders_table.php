@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use App\Models\PromoCode;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -18,25 +19,9 @@ return new class extends Migration {
             $table->id();
             $table->unsignedInteger('number')->unique();
             $table->foreignIdFor(User::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->enum('delivery_method', [
-                'Courier',
-                'Self-delivery from Meest',
-                'Self-delivery from Ukrposhta',
-                'Self-delivery from Nova Poshta'
-            ]);
-            $table->enum('pay_method', [
-                'Payment upon receipt of goods',
-                'Pay now',
-                'Cashless for legal entities',
-                'Payment for legal entities through a current account',
-                'Pay online with the social card "Baby package"',
-                'Cashless for individuals',
-                'Payment for individuals through a current account',
-                'PrivatPay',
-                'Credit and payment in installments',
-                'Issuance of loans in partner banks'
-            ]);
-            $table->foreignIdFor(PromoCode::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->enum('delivery_method', Order::$deliveryMethods);
+            $table->enum('pay_method', Order::$payMethods);
+            $table->foreignIdFor(PromoCode::class)->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->unsignedInteger('goods_cost');
             $table->unsignedInteger('delivery_cost')->nullable()->default(0);
             $table->unsignedInteger('total_cost');

@@ -27,7 +27,12 @@ class Good extends Model
 
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(GoodTag::class, 'good_tag', 'good_id', 'tag_id');
+        return $this->belongsToMany(Tag::class, 'good_tag', 'good_id', 'tag_id');
+    }
+
+    public function attributes(): BelongsToMany
+    {
+        return $this->belongsToMany(Attribute::class, 'good_attribute', 'good_id', 'attribute_id');
     }
 
     public function goodImages(): HasMany

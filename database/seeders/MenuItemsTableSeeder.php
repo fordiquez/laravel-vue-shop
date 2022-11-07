@@ -100,20 +100,32 @@ class MenuItemsTableSeeder extends Seeder
         $menuItem = $this->menuItem($menu, 'Goods Images', 'voyager.good-images.index');
         $this->fillMenuItem($menuItem, 'voyager-photos', 3, $goodsMenuItem->id);
 
+        $menuItem = $this->menuItem($menu, 'Attributes', 'voyager.attributes.index');
+        $this->fillMenuItem($menuItem, 'voyager-params', 4, $goodsMenuItem->id);
+
         $menuItem = $this->menuItem($menu, 'Reviews', 'voyager.reviews.index');
-        $this->fillMenuItem($menuItem, 'voyager-chat', 4, $goodsMenuItem->id);
+        $this->fillMenuItem($menuItem, 'voyager-chat', 5, $goodsMenuItem->id);
 
         $menuItem = $this->menuItem($menu, 'Review Images', 'voyager.review-images.index');
-        $this->fillMenuItem($menuItem, 'voyager-upload', 4, $goodsMenuItem->id);
+        $this->fillMenuItem($menuItem, 'voyager-upload', 6, $goodsMenuItem->id);
+
+        $menuItem = $this->menuItem($menu, 'Orders', 'voyager.orders.index');
+        $this->fillMenuItem($menuItem, 'voyager-basket', 9);
+
+        $ordersMenuItem = $this->menuItem($menu, 'Orders Items');
+        $this->fillMenuItem($ordersMenuItem, 'voyager-logbook', 10);
 
         $menuItem = $this->menuItem($menu, 'Promo Codes', 'voyager.promo-codes.index');
-        $this->fillMenuItem($menuItem, 'voyager-ticket', 9);
+        $this->fillMenuItem($menuItem, 'voyager-ticket', 1, $ordersMenuItem->id);
+
+        $menuItem = $this->menuItem($menu, 'Order Histories', 'voyager.order-histories.index');
+        $this->fillMenuItem($menuItem, 'voyager-calendar', 2, $ordersMenuItem->id);
 
         $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.media', 'voyager.media.index');
-        $this->fillMenuItem($menuItem, 'voyager-images', 10);
+        $this->fillMenuItem($menuItem, 'voyager-images', 11);
 
         $toolsMenuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.tools');
-        $this->fillMenuItem($toolsMenuItem, 'voyager-tools', 11);
+        $this->fillMenuItem($toolsMenuItem, 'voyager-tools', 12);
 
         $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.menu_builder', 'voyager.menus.index');
         $this->fillMenuItem($menuItem, 'voyager-list', 1, $toolsMenuItem->id);
@@ -128,6 +140,6 @@ class MenuItemsTableSeeder extends Seeder
         $this->fillMenuItem($menuItem, 'voyager-bread', 4, $toolsMenuItem->id);
 
         $menuItem = $this->menuItem($menu, 'voyager::seeders.menu_items.settings', 'voyager.settings.index');
-        $this->fillMenuItem($menuItem, 'voyager-settings', 12);
+        $this->fillMenuItem($menuItem, 'voyager-settings', 13);
     }
 }

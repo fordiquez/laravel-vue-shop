@@ -59,5 +59,11 @@ class PermissionsTableSeeder extends Seeder
         Permission::generateFor('review_images');
 
         Permission::generateFor('promo_codes');
+
+        Permission::generateFor('orders');
+
+        Permission::generateFor('order_histories');
+
+        Permission::generateFor('attributes');
     }
 }
