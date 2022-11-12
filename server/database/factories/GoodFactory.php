@@ -29,8 +29,8 @@ class GoodFactory extends Factory
             'description' => fake()->paragraph(10),
             'short_description' => fake()->sentence(50),
             'warning_description' => fake()->sentence(200),
-            'old_price' => fake()->numberBetween(100, 100000),
-            'price' => fake()->numberBetween(100, 100000),
+            'old_price' => fake()->numberBetween(100, 10000),
+            'price' => fake()->numberBetween(100, 10000),
             'quantity' => fake()->numberBetween(0, 100),
             'status_id' => GoodStatus::query()->inRandomOrder()->value('id')
         ];
