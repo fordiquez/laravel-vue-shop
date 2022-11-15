@@ -7,26 +7,11 @@
 </template>
 
 <script>
-import HeaderComponent from "./components/HeaderComponent.vue";
-import FooterComponent from "./components/FooterComponent.vue";
+import HeaderComponent from "./components/Header.vue";
+import FooterComponent from "./components/Footer.vue";
+
 export default {
   name: "App",
-  components: { FooterComponent, HeaderComponent },
-  data: () => ({
-    categories: []
-  }),
-  mounted() {
-    $(document).trigger("change");
-    this.getCategories();
-  },
-  methods: {
-    async getCategories() {
-      await this.$axios.get("/api/categories").then(({ data }) => {
-        this.categories = data.data;
-      }).catch(error => {
-        console.log(error);
-      });
-    }
-  }
+  components: { HeaderComponent, FooterComponent },
 };
 </script>

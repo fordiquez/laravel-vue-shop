@@ -10,6 +10,8 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return CategoryResource::collection(Category::all());
+        $categories = Category::where('parent_id', null)->get();
+
+        return CategoryResource::collection($categories);
     }
 }

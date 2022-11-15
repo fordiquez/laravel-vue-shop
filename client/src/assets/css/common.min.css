@@ -63,9 +63,7 @@ a:focus {
     z-index: 1
 }
 
-@supports selector(a:focus-visible
-
-) {
+@supports selector(a:focus-visible) {
     a:focus {
         box-shadow: none
     }
@@ -1887,13 +1885,13 @@ button.button, input.button {
 
 @font-face {
     font-family: Rozetka;
-    src: url(/assets/fonts/RozetkaWeb-Regular.woff), url(/assets/fonts/RozetkaWeb-Regular.woff2)
+    src: url(/src/assets/fonts/RozetkaWeb-Regular.woff), url(/src/assets/fonts/RozetkaWeb-Regular.woff2)
 }
 
 @font-face {
     font-family: Rozetka Bold;
     font-weight: 700;
-    src: url(/assets/fonts/RozetkaWeb-Bold.woff), url(/assets/fonts/RozetkaWeb-Bold.woff2)
+    src: url(/src/assets/fonts/RozetkaWeb-Bold.woff), url(/src/assets/fonts/RozetkaWeb-Bold.woff2)
 }
 
 h1, h2, h3, h4, h5, h6 {
