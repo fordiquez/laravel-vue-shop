@@ -1,17 +1,15 @@
 <template>
-  <div class="wrapper central-wrapper js-wrapper ng-star-inserted">
-    <header-component />
-    <router-view></router-view>
-    <footer-component />
-  </div>
+  <Header />
+  <main class="flex-grow overflow-x-hidden">
+    <RouterView />
+  </main>
+  <Footer/>
 </template>
-
 <script>
-import HeaderComponent from "./components/Header.vue";
-import FooterComponent from "./components/Footer.vue";
+import Header from "./components/Header.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
-  name: "App",
-  components: { HeaderComponent, FooterComponent },
-};
+  components: {Header, Footer}
+}
 </script>
