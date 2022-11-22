@@ -100,8 +100,8 @@ class MenuItemsTableSeeder extends Seeder
         $menuItem = $this->menuItem($menu, 'Goods Images', 'voyager.good-images.index');
         $this->fillMenuItem($menuItem, 'voyager-photos', 3, $goodsMenuItem->id);
 
-        $menuItem = $this->menuItem($menu, 'Attributes', 'voyager.attributes.index');
-        $this->fillMenuItem($menuItem, 'voyager-params', 4, $goodsMenuItem->id);
+//        $menuItem = $this->menuItem($menu, 'Attributes', 'voyager.attributes.index');
+//        $this->fillMenuItem($menuItem, 'voyager-params', 4, $goodsMenuItem->id);
 
         $menuItem = $this->menuItem($menu, 'Reviews', 'voyager.reviews.index');
         $this->fillMenuItem($menuItem, 'voyager-chat', 5, $goodsMenuItem->id);

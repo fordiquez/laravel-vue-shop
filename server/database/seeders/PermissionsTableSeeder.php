@@ -64,6 +64,6 @@ class PermissionsTableSeeder extends Seeder
 
         Permission::generateFor('order_histories');
 
-        Permission::generateFor('attributes');
+//        Permission::generateFor('attributes');
     }
 }

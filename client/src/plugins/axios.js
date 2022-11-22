@@ -8,5 +8,7 @@ export default {
                 Authorization: options.token ? `Bearer ${options.token}` : '',
             }
         })
+
+        app.provide('axios', options)
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Attribute;
+use App\Models\Property;
 use App\Models\Good;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -14,10 +14,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('good_attribute', function (Blueprint $table) {
+        Schema::create('good_property', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Good::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignIdFor(Attribute::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignIdFor(Property::class)->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->string('value');
             $table->timestamps();
         });
     }

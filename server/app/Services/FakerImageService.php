@@ -11,8 +11,8 @@ final class FakerImageService extends Base
 {
     public function loremflickr(string $dir = '', string $name = ''): string
     {
-        $width = $dir === 'users' ? 500 : 1280;
-        $height = $dir === 'users' ? 500 : 720;
+        $width = $dir === 'users' ? 500 : 994;
+        $height = $dir === 'users' ? 500 : 1280;
         $filename = !empty($name) ? $name : Str::random(8);
         $dateYear = Carbon::now()->format('FY');
         $path = "$dir/$dateYear/$filename.jpg";

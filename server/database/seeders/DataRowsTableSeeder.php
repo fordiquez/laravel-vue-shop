@@ -32,7 +32,7 @@ class DataRowsTableSeeder extends Seeder
         $promoCodeDataType = DataType::where('slug', 'promo-codes')->firstOrFail();
         $orderDataType = DataType::where('slug', 'orders')->firstOrFail();
         $orderHistoryDataType = DataType::where('slug', 'order-histories')->firstOrFail();
-        $attributeDataType = DataType::where('slug', 'attributes')->firstOrFail();
+//        $attributeDataType = DataType::where('slug', 'attributes')->firstOrFail();
 
         $this->generateUserDataRows($userDataType);
         $this->generateOrderRecipientDataRows($orderRecipientDataType);
@@ -52,7 +52,7 @@ class DataRowsTableSeeder extends Seeder
         $this->generatePromoCodeDataRows($promoCodeDataType);
         $this->generateOrderDataRows($orderDataType);
         $this->generateOrderHistoryDataRows($orderHistoryDataType);
-        $this->generateAttributeDataRows($attributeDataType);
+//        $this->generateAttributeDataRows($attributeDataType);
     }
 
     /**
@@ -450,7 +450,7 @@ class DataRowsTableSeeder extends Seeder
         $this->fillDataRow($dataRow, 'relationship', 'Tags', 0, [0, 1, 1, 1, 1], 7, null, $relationship);
 
         $dataRow = $this->dataRow($goodDataType, 'good_belongstomany_attribute_relationship');
-        $relationship = $this->generateRelationship('App\\Models\\Attribute', 'attributes', 'belongsToMany', 'id', 'id', 'key', 'good_attribute', true, true);
+        $relationship = $this->generateRelationship('App\\Models\\Property', 'attributes', 'belongsToMany', 'id', 'id', 'key', 'good_attribute', true, true);
         $this->fillDataRow($dataRow, 'relationship', 'Attributes', 0, [0, 1, 1, 1, 1], 8, null, $relationship);
 
         $dataRow = $this->dataRow($goodDataType, 'description');

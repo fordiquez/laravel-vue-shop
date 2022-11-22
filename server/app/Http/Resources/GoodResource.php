@@ -20,7 +20,7 @@ class GoodResource extends JsonResource
             'vendor_code' => $this->vendor_code,
             'title' => $this->title,
             'slug' => $this->slug,
-            'category' => new CategoryResource($this->category),
+            'category' => $this->category->title,
             'description' => $this->description,
             'short_description' => $this->short_description,
             'warning_description' => $this->warning_description,
@@ -30,6 +30,7 @@ class GoodResource extends JsonResource
             'status' => $this->status->title,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'images' => GoodImageResource::collection($this->goodImages)
         ];
     }
 }

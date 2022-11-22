@@ -5,13 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Attribute extends Model
+class GoodProperty extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'title',
-        'key',
-        'value'
-    ];
+    protected $table = 'good_property';
 }

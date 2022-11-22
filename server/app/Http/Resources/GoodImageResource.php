@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Category;
+use App\Models\GoodImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin Category */
-class CategoryResource extends JsonResource
+/** @mixin GoodImage */
+class GoodImageResource extends JsonResource
 {
     /**
      * @param Request $request
@@ -17,11 +17,9 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title,
-            'slug' => $this->slug,
-            'photo' => url("/storage/$this->photo"),
-            'parent_id' => $this->parent_id,
-            'subcategories' => $this->subcategories()->count() ? $this::loopCategories($this->subcategories) : null,
+            'good_id' => $this->good_id,
+            'src' => url("/storage/$this->src"),
+            'is_preview' => $this->is_preview,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

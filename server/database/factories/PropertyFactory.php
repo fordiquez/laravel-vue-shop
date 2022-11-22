@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 /**
  * @extends Factory
  */
-class AttributeFactory extends Factory
+class PropertyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,9 +18,8 @@ class AttributeFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(5),
             'key' => Str::random(8),
-            'value' => fake()->word()
+            'title' => fake()->sentence(5),
         ];
     }
 }

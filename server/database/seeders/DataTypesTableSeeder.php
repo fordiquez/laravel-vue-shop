@@ -237,18 +237,18 @@ class DataTypesTableSeeder extends Seeder
             ])->save();
         }
 
-        $dataType = $this->dataType('slug', 'attributes');
-        if (!$dataType->exists) {
-            $dataType->fill([
-                'name'                  => 'attributes',
-                'display_name_singular' => __('Attribute'),
-                'display_name_plural'   => __('Attributes'),
-                'icon'                  => 'voyager-params',
-                'model_name'            => 'App\\Models\\Attribute',
-                'generate_permissions'  => 1,
-                'description'           => '',
-            ])->save();
-        }
+//        $dataType = $this->dataType('slug', 'attributes');
+//        if (!$dataType->exists) {
+//            $dataType->fill([
+//                'name'                  => 'attributes',
+//                'display_name_singular' => __('Attribute'),
+//                'display_name_plural'   => __('Attributes'),
+//                'icon'                  => 'voyager-params',
+//                'model_name'            => 'App\\Models\\Property',
+//                'generate_permissions'  => 1,
+//                'description'           => '',
+//            ])->save();
+//        }
     }
 
     /**

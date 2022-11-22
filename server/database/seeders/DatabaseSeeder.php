@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             TagSeeder::class,
             GoodStatusesSeeder::class,
             GoodSeeder::class,
-            AttributeSeeder::class,
+//            PropertySeeder::class,
             PromoCodeSeeder::class,
             OrderSeeder::class,
         ]);
