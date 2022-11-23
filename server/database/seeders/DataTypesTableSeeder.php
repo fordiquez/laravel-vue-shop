@@ -146,19 +146,6 @@ class DataTypesTableSeeder extends Seeder
             ])->save();
         }
 
-        $dataType = $this->dataType('slug', 'good-tag');
-        if (!$dataType->exists) {
-            $dataType->fill([
-                'name'                  => 'good_tag',
-                'display_name_singular' => __('Goods Tag'),
-                'display_name_plural'   => __('Goods Tags'),
-                'icon'                  => 'voyager-book',
-                'model_name'            => 'App\\Models\\GoodTag',
-                'generate_permissions'  => 1,
-                'description'           => '',
-            ])->save();
-        }
-
         $dataType = $this->dataType('slug', 'good-images');
         if (!$dataType->exists) {
             $dataType->fill([
@@ -237,18 +224,57 @@ class DataTypesTableSeeder extends Seeder
             ])->save();
         }
 
-//        $dataType = $this->dataType('slug', 'attributes');
-//        if (!$dataType->exists) {
-//            $dataType->fill([
-//                'name'                  => 'attributes',
-//                'display_name_singular' => __('Attribute'),
-//                'display_name_plural'   => __('Attributes'),
-//                'icon'                  => 'voyager-params',
-//                'model_name'            => 'App\\Models\\Property',
-//                'generate_permissions'  => 1,
-//                'description'           => '',
-//            ])->save();
-//        }
+        $dataType = $this->dataType('slug', 'properties');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'properties',
+                'display_name_singular' => __('Property'),
+                'display_name_plural'   => __('Properties'),
+                'icon'                  => 'voyager-params',
+                'model_name'            => 'App\\Models\\Property',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'property-values');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'property_values',
+                'display_name_singular' => __('Property Value'),
+                'display_name_plural'   => __('Property Values'),
+                'icon'                  => 'voyager-puzzle',
+                'model_name'            => 'App\\Models\\PropertyValue',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'options');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'options',
+                'display_name_singular' => __('Option'),
+                'display_name_plural'   => __('Options'),
+                'icon'                  => 'voyager-trees',
+                'model_name'            => 'App\\Models\\Option',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
+
+        $dataType = $this->dataType('slug', 'option-values');
+        if (!$dataType->exists) {
+            $dataType->fill([
+                'name'                  => 'option_values',
+                'display_name_singular' => __('Option Value'),
+                'display_name_plural'   => __('Option Values'),
+                'icon'                  => 'voyager-brush',
+                'model_name'            => 'App\\Models\\OptionValue',
+                'generate_permissions'  => 1,
+                'description'           => '',
+            ])->save();
+        }
     }
 
     /**

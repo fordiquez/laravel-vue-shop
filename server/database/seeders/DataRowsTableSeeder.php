@@ -25,14 +25,16 @@ class DataRowsTableSeeder extends Seeder
         $goodStatusDataType = DataType::where('slug', 'good-statuses')->firstOrFail();
         $goodDataType = DataType::where('slug', 'goods')->firstOrFail();
         $tagDataType = DataType::where('slug', 'tags')->firstOrFail();
-        $goodTagDataType = DataType::where('slug', 'good-tag')->firstOrFail();
         $goodImageDataType = DataType::where('slug', 'good-images')->firstOrFail();
         $reviewDataType = DataType::where('slug', 'reviews')->firstOrFail();
         $reviewImageDataType = DataType::where('slug', 'review-images')->firstOrFail();
         $promoCodeDataType = DataType::where('slug', 'promo-codes')->firstOrFail();
         $orderDataType = DataType::where('slug', 'orders')->firstOrFail();
         $orderHistoryDataType = DataType::where('slug', 'order-histories')->firstOrFail();
-//        $attributeDataType = DataType::where('slug', 'attributes')->firstOrFail();
+        $propertyDataType = DataType::where('slug', 'properties')->firstOrFail();
+        $propertyValueDataType = DataType::where('slug', 'property-values')->firstOrFail();
+        $optionDataType = DataType::where('slug', 'options')->firstOrFail();
+        $optionValueDataType = DataType::where('slug', 'option-values')->firstOrFail();
 
         $this->generateUserDataRows($userDataType);
         $this->generateOrderRecipientDataRows($orderRecipientDataType);
@@ -44,15 +46,16 @@ class DataRowsTableSeeder extends Seeder
         $this->generateTagDataRows($tagDataType);
         $this->generateGoodStatusDataRows($goodStatusDataType);
         $this->generateGoodDataRows($goodDataType);
-        $this->generateGoodTagDataRows($goodTagDataType);
-        $this->generateGoodImagesDataRows($goodImageDataType);
-        $this->generateGoodImagesDataRows($goodImageDataType);
+        $this->generateGoodImageDataRows($goodImageDataType);
         $this->generateReviewDataRows($reviewDataType);
         $this->generateReviewImageDataRows($reviewImageDataType);
         $this->generatePromoCodeDataRows($promoCodeDataType);
         $this->generateOrderDataRows($orderDataType);
         $this->generateOrderHistoryDataRows($orderHistoryDataType);
-//        $this->generateAttributeDataRows($attributeDataType);
+        $this->generatePropertyDataRows($propertyDataType);
+        $this->generatePropertyValueDataRows($propertyValueDataType);
+        $this->generateOptionDataRows($optionDataType);
+        $this->generateOptionValueDataRows($optionValueDataType);
     }
 
     /**
@@ -449,90 +452,68 @@ class DataRowsTableSeeder extends Seeder
         $relationship = $this->generateRelationship('App\\Models\\Tag', 'tags', 'belongsToMany', 'id', 'id', 'title', 'good_tag', true, true);
         $this->fillDataRow($dataRow, 'relationship', 'Tags', 0, [0, 1, 1, 1, 1], 7, null, $relationship);
 
-        $dataRow = $this->dataRow($goodDataType, 'good_belongstomany_attribute_relationship');
-        $relationship = $this->generateRelationship('App\\Models\\Property', 'attributes', 'belongsToMany', 'id', 'id', 'key', 'good_attribute', true, true);
-        $this->fillDataRow($dataRow, 'relationship', 'Attributes', 0, [0, 1, 1, 1, 1], 8, null, $relationship);
+        $dataRow = $this->dataRow($goodDataType, 'good_belongstomany_property_values_relationship');
+        $relationship = $this->generateRelationship('App\\Models\\PropertyValue', 'property_values', 'belongsToMany', 'id', 'id', 'value', 'good_property_value', true, true);
+        $this->fillDataRow($dataRow, 'relationship', 'Property Values', 0, [0, 1, 1, 1, 1], 8, null, $relationship);
+
+        $dataRow = $this->dataRow($goodDataType, 'good_belongstomany_option_values_relationship');
+        $relationship = $this->generateRelationship('App\\Models\\OptionValue', 'option_values', 'belongsToMany', 'id', 'id', 'value', 'good_option_value', true, true);
+        $this->fillDataRow($dataRow, 'relationship', 'Option Values', 0, [0, 1, 1, 1, 1], 9, null, $relationship);
 
         $dataRow = $this->dataRow($goodDataType, 'description');
-        $this->fillDataRow($dataRow, 'markdown_editor', 'Description', 0, [0, 1, 1, 1, 1], 9, ['nullable', 'string']);
+        $this->fillDataRow($dataRow, 'markdown_editor', 'Description', 0, [0, 1, 1, 1, 1], 10, ['nullable', 'string']);
 
         $dataRow = $this->dataRow($goodDataType, 'short_description');
-        $this->fillDataRow($dataRow, 'markdown_editor', 'Short Description', 0, [0, 1, 1, 1, 1], 10, ['nullable', 'string']);
+        $this->fillDataRow($dataRow, 'markdown_editor', 'Short Description', 0, [0, 1, 1, 1, 1], 11, ['nullable', 'string']);
 
         $dataRow = $this->dataRow($goodDataType, 'warning_description');
-        $this->fillDataRow($dataRow, 'markdown_editor', 'Warning Description', 0, [0, 1, 1, 1, 1], 11, ['nullable', 'string']);
+        $this->fillDataRow($dataRow, 'markdown_editor', 'Warning Description', 0, [0, 1, 1, 1, 1], 12, ['nullable', 'string']);
 
         $dataRow = $this->dataRow($goodDataType, 'old_price');
-        $this->fillDataRow($dataRow, 'number', 'Old Price', 0, [1, 1, 1, 1, 1], 12, ['nullable', 'numeric']);
+        $this->fillDataRow($dataRow, 'number', 'Old Price', 0, [1, 1, 1, 1, 1], 13, ['nullable', 'numeric']);
 
         $dataRow = $this->dataRow($goodDataType, 'price');
-        $this->fillDataRow($dataRow, 'number', 'Price', 1, [1, 1, 1, 1, 1], 13, ['nullable', 'numeric']);
+        $this->fillDataRow($dataRow, 'number', 'Price', 1, [1, 1, 1, 1, 1], 14, ['nullable', 'numeric']);
 
         $dataRow = $this->dataRow($goodDataType, 'quantity');
-        $this->fillDataRow($dataRow, 'number', 'Quantity', 1, [1, 1, 1, 1, 1], 14, ['nullable', 'integer']);
+        $this->fillDataRow($dataRow, 'number', 'Quantity', 1, [1, 1, 1, 1, 1], 15, ['nullable', 'integer']);
 
         $dataRow = $this->dataRow($goodDataType, 'status_id');
-        $this->fillDataRow($dataRow, 'select_dropdown', 'Status Id', 1, [1, 1, 1, 1, 1], 15, ['integer', 'exists:good_statuses,id']);
+        $this->fillDataRow($dataRow, 'select_dropdown', 'Status Id', 1, [1, 1, 1, 1, 1], 16, ['integer', 'exists:good_statuses,id']);
 
         $dataRow = $this->dataRow($goodDataType, 'good_belongsto_good_status_relationship');
         $relationship = $this->generateRelationship('App\\Models\\GoodStatus', 'good_statuses', 'belongsTo', 'status_id', 'id', 'title', 'good_statuses');
-        $this->fillDataRow($dataRow, 'relationship', 'Status', 1, [1, 1, 1, 1, 1], 16, null, $relationship);
+        $this->fillDataRow($dataRow, 'relationship', 'Status', 1, [1, 1, 1, 1, 1], 17, null, $relationship);
 
         $dataRow = $this->dataRow($goodDataType, 'created_at');
-        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.created_at', 0, [1, 1, 0, 0, 0], 17);
+        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.created_at', 0, [1, 1, 0, 0, 0], 18);
 
         $dataRow = $this->dataRow($goodDataType, 'updated_at');
-        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [1, 1, 0, 0, 0], 18);
+        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [1, 1, 0, 0, 0], 19);
     }
 
-    protected function generateGoodTagDataRows(DataType $goodTagDataType): void
+    protected function generateGoodImageDataRows(DataType $goodImageDataType): void
     {
-        $dataRow = $this->dataRow($goodTagDataType, 'id');
+        $dataRow = $this->dataRow($goodImageDataType, 'id');
         $this->fillDataRow($dataRow, 'number', 'voyager::seeders.data_rows.id', 1, [1, 1, 0, 0, 1], 1);
 
-        $dataRow = $this->dataRow($goodTagDataType, 'good_id');
+        $dataRow = $this->dataRow($goodImageDataType, 'good_id');
         $this->fillDataRow($dataRow, 'select_dropdown', 'Good Id', 1, [1, 1, 1, 1, 1], 2, ['integer', 'exists:goods,id']);
 
-        $dataRow = $this->dataRow($goodTagDataType, 'tag_id');
-        $this->fillDataRow($dataRow, 'select_dropdown', 'Tag Id', 1, [1, 1, 1, 1, 1], 3, ['integer', 'exists:tags,id']);
-
-        $dataRow = $this->dataRow($goodTagDataType, 'created_at');
-        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.created_at', 0, [0, 0, 0, 0, 0], 4);
-
-        $dataRow = $this->dataRow($goodTagDataType, 'updated_at');
-        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [0, 0, 0, 0, 0], 5);
-
-        $dataRow = $this->dataRow($goodTagDataType, 'good_tag_belongsto_good_relationship');
-        $relationship = $this->generateRelationship('App\\Models\\Good', 'goods', 'belongsTo', 'good_id', 'id', 'title', 'goods');
-        $this->fillDataRow($dataRow, 'relationship', 'Good', 1, [1, 1, 1, 1, 1], 6, null, $relationship);
-
-        $dataRow = $this->dataRow($goodTagDataType, 'good_tag_belongsto_tag_relationship');
-        $relationship = $this->generateRelationship('App\\Models\\Tag', 'tags', 'belongsTo', 'tag_id', 'id', 'title', 'tags');
-        $this->fillDataRow($dataRow, 'relationship', 'Tag', 1, [1, 1, 1, 1, 1], 7, null, $relationship);
-    }
-
-    protected function generateGoodImagesDataRows(DataType $goodTagDataType): void
-    {
-        $dataRow = $this->dataRow($goodTagDataType, 'id');
-        $this->fillDataRow($dataRow, 'number', 'voyager::seeders.data_rows.id', 1, [1, 1, 0, 0, 1], 1);
-
-        $dataRow = $this->dataRow($goodTagDataType, 'good_id');
-        $this->fillDataRow($dataRow, 'select_dropdown', 'Good Id', 1, [1, 1, 1, 1, 1], 2, ['integer', 'exists:goods,id']);
-
-        $dataRow = $this->dataRow($goodTagDataType, 'good_image_belongsto_good_relationship');
+        $dataRow = $this->dataRow($goodImageDataType, 'good_image_belongsto_good_relationship');
         $relationship = $this->generateRelationship('App\\Models\\Good', 'goods', 'belongsTo', 'good_id', 'id', 'title', 'goods');
         $this->fillDataRow($dataRow, 'relationship', 'Good', 0, [1, 1, 1, 1, 1], 3, null, $relationship);
 
-        $dataRow = $this->dataRow($goodTagDataType, 'src');
+        $dataRow = $this->dataRow($goodImageDataType, 'src');
         $this->fillDataRow($dataRow, 'image', 'SRC', 1, [1, 1, 1, 1, 1], 4, ['nullable', 'file', 'mimes:jpg,bmp,png']);
 
-        $dataRow = $this->dataRow($goodTagDataType, 'is_preview');
+        $dataRow = $this->dataRow($goodImageDataType, 'is_preview');
         $this->fillDataRow($dataRow, 'checkbox', 'Is Preview', 1, [1, 1, 1, 1, 1], 5);
 
-        $dataRow = $this->dataRow($goodTagDataType, 'created_at');
+        $dataRow = $this->dataRow($goodImageDataType, 'created_at');
         $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.created_at', 0, [1, 1, 0, 0, 0], 6);
 
-        $dataRow = $this->dataRow($goodTagDataType, 'updated_at');
+        $dataRow = $this->dataRow($goodImageDataType, 'updated_at');
         $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [1, 1, 0, 0, 0], 7);
     }
 
@@ -693,24 +674,77 @@ class DataRowsTableSeeder extends Seeder
         $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [1, 1, 0, 0, 0], 6);
     }
 
-    protected function generateAttributeDataRows(DataType $attributeDataType): void
+    protected function generatePropertyDataRows(DataType $propertyDataType): void
     {
-        $dataRow = $this->dataRow($attributeDataType, 'id');
+        $dataRow = $this->dataRow($propertyDataType, 'id');
         $this->fillDataRow($dataRow, 'number', 'voyager::seeders.data_rows.id', 1, [1, 1, 0, 0, 1], 1);
 
-        $dataRow = $this->dataRow($attributeDataType, 'title');
-        $this->fillDataRow($dataRow, 'text', 'Title', 1, [1, 1, 1, 1, 1], 2, 'string');
+        $dataRow = $this->dataRow($propertyDataType, 'title');
+        $this->fillDataRow($dataRow, 'text', 'Title', 1, [1, 1, 1, 1, 1], 2, ['string', 'unique:properties']);
 
-        $dataRow = $this->dataRow($attributeDataType, 'key');
-        $this->fillDataRow($dataRow, 'text', 'Key', 1, [1, 1, 1, 1, 1], 3, ['string', 'unique:attributes']);
+        $dataRow = $this->dataRow($propertyDataType, 'created_at');
+        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.created_at', 0, [1, 1, 0, 0, 0], 3);
 
-        $dataRow = $this->dataRow($attributeDataType, 'value');
-        $this->fillDataRow($dataRow, 'text', 'Value', 1, [1, 1, 1, 1, 1], 4, 'string');
+        $dataRow = $this->dataRow($propertyDataType, 'updated_at');
+        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [1, 1, 0, 0, 0], 4);
+    }
 
-        $dataRow = $this->dataRow($attributeDataType, 'created_at');
+    protected function generatePropertyValueDataRows(DataType $propertyValueDataType): void
+    {
+        $dataRow = $this->dataRow($propertyValueDataType, 'id');
+        $this->fillDataRow($dataRow, 'number', 'voyager::seeders.data_rows.id', 1, [1, 1, 0, 0, 1], 1);
+
+        $dataRow = $this->dataRow($propertyValueDataType, 'property_id');
+        $this->fillDataRow($dataRow, 'select_dropdown', 'Property Id', 1, [1, 1, 1, 1, 1], 2, ['integer', 'exists:properties,id']);
+
+        $dataRow = $this->dataRow($propertyValueDataType, 'property_value_belongsto_property_relationship');
+        $relationship = $this->generateRelationship('App\\Models\\Property', 'properties', 'belongsTo', 'property_id', 'id', 'title', 'properties');
+        $this->fillDataRow($dataRow, 'relationship', 'Property', 1, [1, 1, 1, 1, 1], 3, null, $relationship);
+
+        $dataRow = $this->dataRow($propertyValueDataType, 'value');
+        $this->fillDataRow($dataRow, 'text', 'Value', 1, [1, 1, 1, 1, 1], 4, ['string', 'unique:property_values']);
+
+        $dataRow = $this->dataRow($propertyValueDataType, 'created_at');
         $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.created_at', 0, [1, 1, 0, 0, 0], 5);
 
-        $dataRow = $this->dataRow($attributeDataType, 'updated_at');
-        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [0, 1, 0, 0, 0], 6);
+        $dataRow = $this->dataRow($propertyValueDataType, 'updated_at');
+        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [1, 1, 0, 0, 0], 6);
+    }
+
+    protected function generateOptionDataRows(DataType $optionDataType): void
+    {
+        $dataRow = $this->dataRow($optionDataType, 'id');
+        $this->fillDataRow($dataRow, 'number', 'voyager::seeders.data_rows.id', 1, [1, 1, 0, 0, 1], 1);
+
+        $dataRow = $this->dataRow($optionDataType, 'title');
+        $this->fillDataRow($dataRow, 'text', 'Title', 1, [1, 1, 1, 1, 1], 2, ['string', 'unique:options']);
+
+        $dataRow = $this->dataRow($optionDataType, 'created_at');
+        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.created_at', 0, [1, 1, 0, 0, 0], 3);
+
+        $dataRow = $this->dataRow($optionDataType, 'updated_at');
+        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [1, 1, 0, 0, 0], 4);
+    }
+
+    protected function generateOptionValueDataRows(DataType $optionValueDataType): void
+    {
+        $dataRow = $this->dataRow($optionValueDataType, 'id');
+        $this->fillDataRow($dataRow, 'number', 'voyager::seeders.data_rows.id', 1, [1, 1, 0, 0, 1], 1);
+
+        $dataRow = $this->dataRow($optionValueDataType, 'option_id');
+        $this->fillDataRow($dataRow, 'select_dropdown', 'Option Id', 1, [1, 1, 1, 1, 1], 2, ['integer', 'exists:options,id']);
+
+        $dataRow = $this->dataRow($optionValueDataType, 'option_value_belongsto_option_relationship');
+        $relationship = $this->generateRelationship('App\\Models\\Option', 'options', 'belongsTo', 'option_id', 'id', 'title', 'options');
+        $this->fillDataRow($dataRow, 'relationship', 'Option', 1, [1, 1, 1, 1, 1], 3, null, $relationship);
+
+        $dataRow = $this->dataRow($optionValueDataType, 'value');
+        $this->fillDataRow($dataRow, 'text', 'Value', 1, [1, 1, 1, 1, 1], 4, ['string', 'unique:option_values']);
+
+        $dataRow = $this->dataRow($optionValueDataType, 'created_at');
+        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.created_at', 0, [1, 1, 0, 0, 0], 5);
+
+        $dataRow = $this->dataRow($optionValueDataType, 'updated_at');
+        $this->fillDataRow($dataRow, 'timestamp', 'voyager::seeders.data_rows.updated_at', 0, [1, 1, 0, 0, 0], 6);
     }
 }

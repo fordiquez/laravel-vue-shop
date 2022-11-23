@@ -94,20 +94,26 @@ class MenuItemsTableSeeder extends Seeder
         $menuItem = $this->menuItem($menu, 'Goods Statuses', 'voyager.good-statuses.index');
         $this->fillMenuItem($menuItem, 'voyager-activity', 1, $goodsMenuItem->id);
 
-        $menuItem = $this->menuItem($menu, 'Goods Tags', 'voyager.good-tag.index');
-        $this->fillMenuItem($menuItem, 'voyager-book', 2, $goodsMenuItem->id);
-
         $menuItem = $this->menuItem($menu, 'Goods Images', 'voyager.good-images.index');
-        $this->fillMenuItem($menuItem, 'voyager-photos', 3, $goodsMenuItem->id);
+        $this->fillMenuItem($menuItem, 'voyager-photos', 2, $goodsMenuItem->id);
 
-//        $menuItem = $this->menuItem($menu, 'Attributes', 'voyager.attributes.index');
-//        $this->fillMenuItem($menuItem, 'voyager-params', 4, $goodsMenuItem->id);
+        $menuItem = $this->menuItem($menu, 'Properties', 'voyager.properties.index');
+        $this->fillMenuItem($menuItem, 'voyager-params', 3, $goodsMenuItem->id);
+
+        $menuItem = $this->menuItem($menu, 'Property Values', 'voyager.property-values.index');
+        $this->fillMenuItem($menuItem, 'voyager-pizza', 4, $goodsMenuItem->id);
+
+        $menuItem = $this->menuItem($menu, 'Options', 'voyager.options.index');
+        $this->fillMenuItem($menuItem, 'voyager-trees', 5, $goodsMenuItem->id);
+
+        $menuItem = $this->menuItem($menu, 'Option Values', 'voyager.option-values.index');
+        $this->fillMenuItem($menuItem, 'voyager-brush', 6, $goodsMenuItem->id);
 
         $menuItem = $this->menuItem($menu, 'Reviews', 'voyager.reviews.index');
-        $this->fillMenuItem($menuItem, 'voyager-chat', 5, $goodsMenuItem->id);
+        $this->fillMenuItem($menuItem, 'voyager-chat', 7, $goodsMenuItem->id);
 
         $menuItem = $this->menuItem($menu, 'Review Images', 'voyager.review-images.index');
-        $this->fillMenuItem($menuItem, 'voyager-upload', 6, $goodsMenuItem->id);
+        $this->fillMenuItem($menuItem, 'voyager-upload', 8, $goodsMenuItem->id);
 
         $menuItem = $this->menuItem($menu, 'Orders', 'voyager.orders.index');
         $this->fillMenuItem($menuItem, 'voyager-basket', 9);

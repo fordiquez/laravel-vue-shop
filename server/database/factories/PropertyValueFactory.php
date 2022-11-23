@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
+use App\Models\Property;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends Factory
  */
-class PropertyFactory extends Factory
+class PropertyValueFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +18,8 @@ class PropertyFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->unique()->sentence(5),
+            'value' => ucfirst(fake()->word()),
+            'property_id' => Property::inRandomOrder()->value('id')
         ];
     }
 }

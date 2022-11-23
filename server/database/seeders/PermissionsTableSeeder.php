@@ -44,8 +44,6 @@ class PermissionsTableSeeder extends Seeder
 
         Permission::generateFor('tags');
 
-        Permission::generateFor('good_tag');
-
         Permission::generateFor('order_recipients');
 
         Permission::generateFor('user_addresses');
@@ -64,6 +62,12 @@ class PermissionsTableSeeder extends Seeder
 
         Permission::generateFor('order_histories');
 
-//        Permission::generateFor('attributes');
+        Permission::generateFor('properties');
+
+        Permission::generateFor('property_values');
+
+        Permission::generateFor('options');
+
+        Permission::generateFor('option_values');
     }
 }

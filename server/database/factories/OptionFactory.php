@@ -3,12 +3,11 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
 /**
  * @extends Factory
  */
-class PropertyFactory extends Factory
+class OptionFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +17,7 @@ class PropertyFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->unique()->sentence(5),
+            'title' => fake()->unique()->colorName()
         ];
     }
 }

@@ -17,10 +17,7 @@ class DatabaseSeeder extends Seeder
             VoyagerDatabaseSeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
-            TagSeeder::class,
-            GoodStatusesSeeder::class,
             GoodSeeder::class,
-//            PropertySeeder::class,
             PromoCodeSeeder::class,
             OrderSeeder::class,
         ]);

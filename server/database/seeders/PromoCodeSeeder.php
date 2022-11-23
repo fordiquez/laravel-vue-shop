@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\PromoCode;
+use Database\Factories\PromoCodeFactory;
 use Illuminate\Database\Seeder;
 
 class PromoCodeSeeder extends Seeder
@@ -14,6 +15,6 @@ class PromoCodeSeeder extends Seeder
      */
     public function run(): void
     {
-        PromoCode::factory(10)->create();
+        PromoCodeFactory::new()->count(10)->create();
     }
 }

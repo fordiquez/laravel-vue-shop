@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\OrderRecipient;
-use App\Models\User;
-use App\Models\UserAddress;
-use App\Models\UserContact;
+use Database\Factories\OrderRecipientFactory;
+use Database\Factories\UserAddressFactory;
+use Database\Factories\UserContactFactory;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -17,10 +17,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()
-            ->has(OrderRecipient::factory()->count(rand(1, 3)))
-            ->has(UserAddress::factory()->count(rand(1, 3)))
-            ->has(UserContact::factory()->count(rand(1, 3)))
+        UserFactory::new()
+            ->has(OrderRecipientFactory::new()->count(rand(1, 3)))
+            ->has(UserAddressFactory::new()->count(rand(1, 3)))
+            ->has(UserContactFactory::new()->count(rand(1, 3)))
             ->create([
             'first_name' => 'Gerald',
             'last_name' => 'Ford',
@@ -30,10 +30,11 @@ class UserSeeder extends Seeder
             'email' => 'fordiquez@gmail.com',
             'password' => '$2y$10$Y.tltioAYrGTul6J8GeDoOqjv/98LM8iSj4PCIDsVYkE3KWFah.lC'
         ]);
-        User::factory(10)
-            ->has(OrderRecipient::factory()->count(rand(1, 3)))
-            ->has(UserAddress::factory()->count(rand(1, 3)))
-            ->has(UserContact::factory()->count(rand(1, 3)))
+
+        UserFactory::new()->count(10)
+            ->has(OrderRecipientFactory::new()->count(rand(1, 3)))
+            ->has(UserAddressFactory::new()->count(rand(1, 3)))
+            ->has(UserContactFactory::new()->count(rand(1, 3)))
             ->create();
     }
 }
