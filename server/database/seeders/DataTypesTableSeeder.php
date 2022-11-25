@@ -282,9 +282,9 @@ class DataTypesTableSeeder extends Seeder
      *
      * @param $field
      * @param $for
-     * @return mixed [type] [description]
+     * @return DataType
      */
-    protected function dataType($field, $for): mixed
+    protected function dataType($field, $for): DataType
     {
         return DataType::firstOrNew([$field => $for]);
     }

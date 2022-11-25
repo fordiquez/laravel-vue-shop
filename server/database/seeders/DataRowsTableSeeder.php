@@ -63,9 +63,9 @@ class DataRowsTableSeeder extends Seeder
      *
      * @param DataType $type
      * @param string $field
-     * @return mixed [type] [description]
+     * @return DataRow
      */
-    protected function dataRow(DataType $type, string $field): mixed
+    protected function dataRow(DataType $type, string $field): DataRow
     {
         return DataRow::firstOrNew([
             'data_type_id' => $type->id,
@@ -84,7 +84,7 @@ class DataRowsTableSeeder extends Seeder
      * @param array|null $relationship
      * @return void
      */
-    protected function fillDataRow(DataRow $dataRow, string $type, string $displayName, bool $required, array $bread, int $order, array|string $rules = null, array $relationship = null)
+    protected function fillDataRow(DataRow $dataRow, string $type, string $displayName, bool $required, array $bread, int $order, array|string $rules = null, array $relationship = null): void
     {
         if (!$dataRow->exists) {
             $fields = [

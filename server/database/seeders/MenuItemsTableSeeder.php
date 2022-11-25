@@ -14,9 +14,9 @@ class MenuItemsTableSeeder extends Seeder
      * @param string $title
      * @param string|null $route
      * @param string|null $url
-     * @return mixed
+     * @return MenuItem
      */
-    protected function menuItem(Menu $menu, string $title, string $route = null, string $url = null): mixed
+    protected function menuItem(Menu $menu, string $title, string $route = null, string $url = null): MenuItem
     {
         return MenuItem::firstOrNew([
             'menu_id' => $menu->id,

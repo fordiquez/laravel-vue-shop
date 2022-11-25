@@ -118,10 +118,10 @@
 
             <!-- Logo -->
             <div class="ml-4 flex lg:ml-0">
-              <a href="#">
+              <router-link :to="{ name: 'Home' }">
                 <span class="sr-only">Your Company</span>
                 <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""/>
-              </a>
+              </router-link>
             </div>
 
             <!-- Flyout menus -->
@@ -181,16 +181,16 @@
 
             <div class="ml-auto flex items-center">
               <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
-                <a href="/"
+                <router-link :to="{ name: 'Login' }"
                    class="text-base font-medium leading-6 text-gray-500 whitespace-no-wrap hover:text-wave-600 focus:outline-none focus:text-gray-900">
                   Sign in
-                </a>
+                </router-link>
                 <span class="h-6 w-px bg-gray-200" aria-hidden="true"/>
                 <span class="inline-flex rounded-md shadow-sm">
-                  <a href="/"
+                  <router-link :to="{ name: 'Register' }"
                      class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-wave-500 hover:bg-wave-600 focus:outline-none focus:border-indigo-700 focus:shadow-outline-wave active:bg-wave-700">
                     Sign up
-                  </a>
+                  </router-link>
                 </span>
               </div>
 
