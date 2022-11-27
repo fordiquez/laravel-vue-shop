@@ -1,8 +1,7 @@
-import {inject, ref} from 'vue'
+import { ref } from 'vue'
 import axios from 'axios'
 
-export const useFetch = (url, config = {}) => {
-    const data = ref(null)
+export const useAxios = (url, data, config = {}) => {
     const response = ref(null)
     const error = ref(null)
     const loading = ref(null)
@@ -10,14 +9,12 @@ export const useFetch = (url, config = {}) => {
     const fetch = async () => {
         loading.value = true
         try {
-            const { baseUrl } = inject('axios')
-            const result = await axios.request({
-                baseURL: baseUrl,
+            const result = await this.$axios.request({
+                baseURL: import.meta.env.VITE_LARAVEL_API_BASE_URL,
                 url,
                 ...config
             })
-            response.value = result
-            data.value = result.data.data
+            response.value = result.data.data
         } catch (e) {
             error.value = e
         } finally {
@@ -30,7 +27,6 @@ export const useFetch = (url, config = {}) => {
     return {
         response,
         error,
-        data,
         loading,
         fetch
     }

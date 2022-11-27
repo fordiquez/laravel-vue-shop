@@ -4,20 +4,17 @@
       <div>
         <img class="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
              alt="Your Company"/>
-        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
-        <p class="mt-2 text-center text-sm text-gray-600">
-          Or {{ ' ' }}
-          <router-link :to="{ name: 'Register' }" class="font-medium text-indigo-600 hover:text-indigo-500">create a new
-            account using the sign up form
-          </router-link>
-        </p>
+        <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Forgot Password</h2>
       </div>
-      <form class="mt-8 space-y-6" @submit.prevent="authStore.login(form)">
+      <form class="mt-8 space-y-6" @submit.prevent="authStore.forgotPassword(email)">
+        <div v-if="authStore.status" class="m-2 p-2 text-green-900 font-semibold bg-green-300 rounded-md">
+          {{ authStore.status }}
+        </div>
         <input type="hidden" name="remember" value="true"/>
         <div class="-space-y-px rounded-md shadow-sm">
           <div>
             <label for="email-address" class="sr-only">Email address</label>
-            <input v-model="form.email" id="email-address" name="email" type="email" autocomplete="email"
+            <input v-model="email" id="email-address" name="email" type="email" autocomplete="email"
                    placeholder="Email address"
                    class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             />
@@ -25,28 +22,17 @@
               <span class="text-red-400 text-sm">{{ authStore.errors.email[0] }}</span>
             </div>
           </div>
-          <div>
-            <label for="password" class="sr-only">Password</label>
-            <input v-model="form.password" id="password" name="password" type="password" autocomplete="current-password"
-                   placeholder="Password"
-                   class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-            />
-            <div v-if="authStore.errors.password" class="flex py-1">
-              <span class="text-red-400 text-sm">{{ authStore.errors.password[0] }}</span>
-            </div>
-          </div>
         </div>
 
         <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <input id="remember-me" name="remember-me" type="checkbox"
-                   class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"/>
-            <label for="remember-me" class="ml-2 block text-sm text-gray-900">Remember me</label>
-          </div>
-
           <div class="text-sm">
-            <router-link :to="{ name: 'ForgotPassword' }" class="font-medium text-indigo-600 hover:text-indigo-500">
-              Forgot your password?
+            <router-link :to="{ name: 'Login' }" class="font-medium text-indigo-600 hover:text-indigo-500">
+              Sign In
+            </router-link>
+          </div>
+          <div class="text-sm">
+            <router-link :to="{ name: 'Register' }" class="font-medium text-indigo-600 hover:text-indigo-500">
+              Sign Up
             </router-link>
           </div>
         </div>
@@ -66,18 +52,14 @@
 </template>
 
 <script setup>
+import { defineComponent, ref } from 'vue'
 import { LockClosedIcon } from '@heroicons/vue/20/solid'
-import { defineComponent, reactive } from 'vue';
-import { useAuthStore } from '@/stores/auth';
+import { useAuthStore } from '@/stores/auth'
 
 defineComponent({
-  name: 'Login'
+  name: 'ForgotPassword'
 })
 
 const authStore = useAuthStore();
-
-const form = reactive({
-  email: '',
-  password: ''
-})
+const email = ref('');
 </script>

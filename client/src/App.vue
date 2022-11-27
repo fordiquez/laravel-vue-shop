@@ -8,7 +8,7 @@
 <script setup>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-import { useFetch } from "./composables/useFetch";
+import { useAxios } from "./composables/useAxios";
 
-const { data } = useFetch('/api/categories')
+const { data } = useAxios('/api/categories')
 </script>

@@ -76,17 +76,14 @@
               </TabGroup>
 
               <div class="space-y-6 border-t border-gray-200 py-6 px-4">
-                <div v-for="page in navigation.pages" :key="page.name" class="flow-root">
-                  <a :href="page.href" class="-m-2 block p-2 font-medium text-gray-900">{{ page.name }}</a>
-                </div>
-              </div>
-
-              <div class="space-y-6 border-t border-gray-200 py-6 px-4">
                 <div class="flow-root">
-                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Sign in</a>
+                  <router-link :to="{ name: 'Login' }" class="-m-2 block p-2 font-medium text-gray-900">Sign in
+                  </router-link>
                 </div>
                 <div class="flow-root">
-                  <a href="#" class="-m-2 block p-2 font-medium text-gray-900">Create account</a>
+                  <router-link :to="{ name: 'Register' }" class="-m-2 block p-2 font-medium text-gray-900">Create
+                    account
+                  </router-link>
                 </div>
               </div>
 
@@ -180,18 +177,27 @@
             </PopoverGroup>
 
             <div class="ml-auto flex items-center">
-              <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+              <div v-if="!authStore.user" class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
                 <router-link :to="{ name: 'Login' }"
-                   class="text-base font-medium leading-6 text-gray-500 whitespace-no-wrap hover:text-wave-600 focus:outline-none focus:text-gray-900">
+                             class="text-base font-medium leading-6 text-gray-500 whitespace-no-wrap hover:text-wave-600 focus:outline-none focus:text-gray-900">
                   Sign in
                 </router-link>
                 <span class="h-6 w-px bg-gray-200" aria-hidden="true"/>
                 <span class="inline-flex rounded-md shadow-sm">
                   <router-link :to="{ name: 'Register' }"
-                     class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-wave-500 hover:bg-wave-600 focus:outline-none focus:border-indigo-700 focus:shadow-outline-wave active:bg-wave-700">
+                               class="inline-flex items-center justify-center px-4 py-2 text-base font-medium leading-6 text-white whitespace-no-wrap transition duration-150 ease-in-out border border-transparent rounded-md bg-wave-500 hover:bg-wave-600 focus:outline-none focus:border-indigo-700 focus:shadow-outline-wave active:bg-wave-700">
                     Sign up
                   </router-link>
                 </span>
+              </div>
+
+              <div v-else>
+                <div class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
+                  <button @click="authStore.logout"
+                          class="text-base font-medium leading-6 text-gray-500 whitespace-no-wrap hover:text-wave-600 focus:outline-none focus:text-gray-900">
+                    Logout
+                  </button>
+                </div>
               </div>
 
               <div class="hidden lg:ml-8 lg:flex">
@@ -246,8 +252,11 @@ import {
   TransitionRoot,
 } from '@headlessui/vue'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { useAuthStore } from '@/stores/auth';
 
 defineProps(['categories'])
 
 const open = ref(false)
+
+const authStore = useAuthStore()
 </script>

@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { useFetch } from "../composables/useFetch";
+import { useAxios } from "../composables/useAxios";
 
-const { data, error } = useFetch('/api/categories')
+const { data, error } = useAxios('/api/categories')
 </script>
