@@ -35,7 +35,7 @@ class GoodSeeder extends Seeder
         OptionFactory::new()->count(5)->create();
         $optionValues = OptionValueFactory::new()->count(10)->create();
 
-        GoodFactory::new()->count(1)
+        GoodFactory::new()->count(22)
             ->has(GoodImageFactory::new()->count(1))
             ->has(ReviewFactory::new()->count(rand(1, 3))
                 ->has(ReviewImageFactory::new()->count(1)))

@@ -25,7 +25,7 @@ class GoodFactory extends Factory
             'slug' => function (array $attributes) {
                 return Str::slug($attributes['title']);
             },
-            'category_id' => Category::query()->inRandomOrder()->value('id'),
+            'category_id' => Category::whereNotIn('id', [1, 6, 16, 17, 20, 23, 24])->inRandomOrder()->value('id'),
             'description' => fake()->paragraph(10),
             'short_description' => fake()->sentence(50),
             'warning_description' => fake()->sentence(200),

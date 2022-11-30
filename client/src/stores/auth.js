@@ -14,11 +14,11 @@ export const useAuthStore = defineStore('auth', {
   },
   actions: {
     async setCookie() {
-      await axios.get('/sanctum/csrf-cookie');
+      await axios.get('/sanctum/csrf-cookie')
     },
     async getUser() {
       this.authErrors = []
-      await axios.get('/api/user').then(({ data }) => this.authUser = data).catch(error => console.log(error))
+      await axios.get('/api/user').then(({ data }) => this.authUser = data)
     },
     async login(data) {
       this.authErrors = []
@@ -26,8 +26,13 @@ export const useAuthStore = defineStore('auth', {
         await axios.post('/login', {
           email: data.email,
           password: data.password
-        }).then(() => this.router.push({ name: 'Home' }))
-          .catch(error => error.response.status === 422 ? this.authErrors = error.response.data.errors : undefined)
+        }).then(async response => {
+          localStorage.setItem('token', response.config.headers['X-XSRF-TOKEN'])
+          await this.getUser()
+          await this.router.push({ name: 'Home' })
+        }).catch(error => {
+          console.log(error.response)
+        })
       })
     },
     async register(data) {
@@ -43,23 +48,34 @@ export const useAuthStore = defineStore('auth', {
           password_confirmation: data.passwordConfirm,
         })
       }).then(() => this.router.push({ name: 'Home' }))
-        .catch(error => error.response.status === 422 ? this.authErrors = error.response.data.errors : undefined)
     },
     async logout() {
-      await axios.post('/logout').then(() => this.authUser = null)
+      await axios.post('/logout').then(() => {
+        this.authUser = null
+        this.removeToken()
+      })
     },
     async forgotPassword(email) {
       this.authErrors = []
       await axios.post('/forgot-password', {
         email
       }).then(response => this.authStatus = response.data.status)
-        .catch(error => error.response.status === 422 ? this.authErrors = error.response.data.errors : undefined)
     },
     async resetPassword(data) {
       this.authErrors = []
-      await axios.post('/reset-password', data)
-        .then(response => this.authStatus = response.data.status)
-        .catch((error) => error.response.status === 422 ? this.authErrors = error.response.data.errors : undefined)
+      await axios.post('/reset-password', data).then(response => this.authStatus = response.data.status)
+    },
+    getToken() {
+      return localStorage.getItem('token')
+    },
+    removeToken() {
+      const token = this.getToken()
+
+      if (token) {
+        localStorage.removeItem('token')
+      }
+
+      this.router.push({ name: 'Login' })
     }
   }
 })

@@ -102,8 +102,8 @@
     </TransitionRoot>
 
     <header class="relative bg-white">
-      <p class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">
-        Get free delivery on orders over $100</p>
+<!--      <p class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">-->
+<!--        Get free delivery on orders over $100</p>-->
 
       <nav aria-label="Top" class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
         <div class="border-b border-gray-200">
@@ -119,6 +119,12 @@
                 <span class="sr-only">Your Company</span>
                 <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt=""/>
               </router-link>
+            </div>
+
+            <div class="flex lg:ml-6">
+              <button class="p-2 text-gray-400 hover:text-gray-500" @click="appStore.toggleMobileCategories">
+                <span>Categories</span>
+              </button>
             </div>
 
             <!-- Flyout menus -->
@@ -139,8 +145,8 @@
                       <div class="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"/>
                       <div class="relative bg-white">
                         <div class="mx-auto max-w-7xl px-8">
-                          <div class="grid grid-cols-2 gap-y-10 gap-x-8 py-16">
-                            <div class="col-start-2 grid grid-cols-2 gap-x-8">
+                          <div class="py-8 flex flex-row-reverse justify-between">
+                            <div class="basis-1/5">
                               <div class="group relative text-base sm:text-sm">
                                 <div
                                     class="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
@@ -154,18 +160,19 @@
                                 <p aria-hidden="true" class="mt-1">Shop now</p>
                               </div>
                             </div>
-                            <div class="row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm">
-                              <div v-for="subcategory in category.subcategories" :key="subcategory.id">
-                                <a href="#" :id="`${subcategory.title}-heading`" class="font-medium text-gray-900">
-                                  {{ subcategory.title }}
-                                </a>
-                                <ul role="list" :aria-labelledby="`${subcategory.title}-heading`"
-                                    class="mt-6 space-y-6 sm:mt-4 sm:space-y-4">
-                                  <li v-for="item in subcategory.subcategories" :key="item.id" class="flex">
-                                    <a :href="item.slug" class="hover:text-gray-800">{{ item.title }}</a>
-                                  </li>
-                                </ul>
-                              </div>
+                            <div class="gap-x-8 gap-y-3 text-sm flex flex-col flex-wrap" style="max-height: 300px">
+                              <ul role="list" v-for="subcategory in category.subcategories" :key="subcategory.id">
+                                <li>
+                                  <a href="#" :id="`${subcategory.title}-heading`" class="font-medium text-gray-900">
+                                    {{ subcategory.title }}
+                                  </a>
+                                  <ul role="list" :aria-labelledby="`${subcategory.title}-heading`" class="mt-2 space-y-2">
+                                    <li v-for="item in subcategory.subcategories" :key="item.id" class="flex">
+                                      <a :href="item.slug" class="hover:text-gray-800">{{ item.title }}</a>
+                                    </li>
+                                  </ul>
+                                </li>
+                              </ul>
                             </div>
                           </div>
                         </div>
@@ -253,10 +260,12 @@ import {
 } from '@headlessui/vue'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/auth';
+import { useAppStore } from '@/stores/app';
 
 defineProps(['categories'])
 
 const open = ref(false)
 
+const appStore = useAppStore()
 const authStore = useAuthStore()
 </script>
