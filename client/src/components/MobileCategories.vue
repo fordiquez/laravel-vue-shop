@@ -11,29 +11,31 @@
       <div class="modal__content">
         <ul class="menu-main" v-if="!showSubcategories">
           <li class="menu-main__item" v-for="category in categories" :key="category.id">
-            <button class="menu-main__link button--medium button--link justify-between" @click="renderSubcategories(category.id)">
+            <button class="menu-main__link button--medium justify-between text-slate-700 hover:bg-slate-100 hover:text-indigo-600 font-semibold" @click="renderSubcategories(category.id)">
               <div class="flex items-center">
                 <EllipsisHorizontalIcon class="w-6 h-6"/>
-                <span class="menu-main__link-title ml-2">{{ category.title }}</span>
+                <span class="menu-main__link-title px-2">{{ category.title }}</span>
               </div>
               <ArrowRightIcon class="w-6 h-6"/>
             </button>
           </li>
         </ul>
         <div v-else>
-          <button type="button" class="menu__back button button--medium button--white" @click="rollbackCategories">
-            <ArrowRightIcon class="w-6 h-6"/>
-            <span>All categories</span>
+          <button @click="rollbackCategories" class="flex w-full items-center justify-center py-2.5 bg-indigo-600 text-white text-sm font-medium leading-tight uppercase rounded shadow-md hover:bg-indigo-700 hover:shadow-lg focus:bg-indigo-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-indigo-800 active:shadow-lg transition duration-150 ease-in-out">
+            <ArrowLeftIcon class="w-6 h-6" />
+            <span class="ml-2">All Categories</span>
           </button>
+          <div class="flex space-x-2 justify-center">
+          </div>
           <p class="menu__label">{{ selectedCategory.title }}</p>
           <ul class="menu-regular" v-if="selectedCategory.subcategories">
             <li class="menu-regular__column" v-for="subcategory in selectedCategory.subcategories" :key="subcategory.id">
-              <a class="menu-main__link button--medium button--link" :href="subcategory.slug">
+              <a class="menu-main__link button--medium button--link font-medium text-gray-900 hover:text-gray-700" :href="subcategory.slug">
                 <span class="menu-main__link-title">{{ subcategory.title }}</span>
               </a>
-              <ul v-if="subcategory.subcategories">
-                <li class="menu-regular__column" v-for="item in subcategory.subcategories" :key="item.id">
-                  <a class="menu-main__link menu-main__link--regular button--small button--white" :href="item.slug">
+              <ul v-if="subcategory.subcategories" class="my-2">
+                <li class="menu-regular__column mt-2" v-for="item in subcategory.subcategories" :key="item.id">
+                  <a class="menu-main__link text-gray-500 hover:text-gray-600" :href="item.slug">
                     <span class="menu-main__link-title">{{ item.title }}</span>
                   </a>
                 </li>
@@ -48,7 +50,7 @@
 
 <script setup>
 import { defineComponent, reactive, ref } from 'vue';
-import { ArrowRightIcon, EllipsisHorizontalIcon, XCircleIcon } from '@heroicons/vue/24/solid'
+import { ArrowLeftIcon, ArrowRightIcon, EllipsisHorizontalIcon, XCircleIcon } from '@heroicons/vue/24/solid'
 
 defineComponent({
   name: 'MobileCategories'

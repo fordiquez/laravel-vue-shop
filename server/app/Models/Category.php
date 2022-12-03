@@ -36,7 +36,15 @@ class Category extends Model
                 $this->loopCategories($category->subcategories);
             }
         }
-
         return $categories;
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    public function getPhotoAttribute($value) {
+        return url("/storage/$value");
     }
 }

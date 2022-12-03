@@ -51,8 +51,32 @@ const router = createRouter({
     },
     {
       path: '/categories/:slug',
-      name: 'Categories',
+      name: 'categories',
       component: () => import('@/views/Categories.vue'),
+      meta: {
+        authorized: false
+      }
+    },
+    {
+      path: '/goods/',
+      name: 'goods',
+      component: () => import('@/views/Goods.vue'),
+      meta: {
+        authorized: false
+      }
+    },
+    {
+      path: '/goods/:slug',
+      name: 'good-overview',
+      component: () => import('@/views/GoodOverview.vue'),
+      meta: {
+        authorized: false
+      }
+    },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: () => import('@/components/Cart.vue'),
       meta: {
         authorized: false
       }

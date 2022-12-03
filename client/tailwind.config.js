@@ -41,6 +41,9 @@ module.exports = {
         '104': '26rem',
         '128': '32rem',
       },
+      gridTemplateRows: {
+        '[auto,auto,1fr]': 'auto auto 1fr',
+      },
       transitionDelay: {
         '450': '450ms',
       },

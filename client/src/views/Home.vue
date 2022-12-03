@@ -6,7 +6,7 @@
            class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 xl:gap-x-8">
         <a v-for="good in goodsStore.goods" :key="good.id" :href="good.slug" class="group">
           <div v-if="good.images"
-               class="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-w-7 xl:aspect-h-8">
+               class="relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
             <img :src="good.images[0].src" :alt="good.title" :title="good.title"
                  class="h-full w-full object-cover object-center group-hover:opacity-75"/>
           </div>

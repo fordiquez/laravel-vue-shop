@@ -32,49 +32,6 @@
                 </button>
               </div>
 
-              <!-- Links -->
-              <TabGroup as="div" class="mt-2">
-                <div class="border-b border-gray-200">
-                  <TabList class="-mb-px flex space-x-8 px-4">
-                    <Tab as="template" v-for="category in categories" :key="category.id"
-                         v-slot="{ selected }">
-                      <button
-                          :class="[selected ? 'text-indigo-600 border-indigo-600' : 'text-gray-900 border-transparent', 'flex-1 whitespace-nowrap border-b-2 py-4 px-1 text-base font-medium']">
-                        {{ category.title }}
-                      </button>
-                    </Tab>
-                  </TabList>
-                </div>
-                <TabPanels as="template">
-                  <TabPanel v-for="category in categories" :key="category.id" class="space-y-10 px-4 pt-10 pb-8">
-                    <div class="grid gap-x-4">
-                      <div class="group relative text-sm">
-                        <div
-                            class="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                          <img :src="category.photo" :alt="category.title" :title="category.title"
-                               class="object-cover object-center"/>
-                        </div>
-                        <a :href="category.slug" class="mt-6 block font-medium text-gray-900">
-                          <span class="absolute inset-0 z-10" aria-hidden="true"/>
-                          {{ category.title }}
-                        </a>
-                        <p aria-hidden="true" class="mt-1">Shop now</p>
-                      </div>
-                    </div>
-                    <div v-for="subcategory in category.subcategories" :key="subcategory.id">
-                      <p :id="`${category.id}-${subcategory.id}-heading-mobile`" class="font-medium text-gray-900">
-                        {{ subcategory.title }}</p>
-                      <ul role="list" :aria-labelledby="`${category.id}-${subcategory.id}-heading-mobile`"
-                          class="mt-6 flex flex-col space-y-6">
-                        <li v-for="item in subcategory.subcategories" :key="item.title" class="flow-root">
-                          <a :href="item.slug" class="-m-2 block p-2 text-gray-500">{{ item.title }}</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </TabPanel>
-                </TabPanels>
-              </TabGroup>
-
               <div class="space-y-6 border-t border-gray-200 py-6 px-4">
                 <div class="flow-root">
                   <router-link :to="{ name: 'Login' }" class="-m-2 block p-2 font-medium text-gray-900">Sign in
@@ -102,8 +59,8 @@
     </TransitionRoot>
 
     <header class="relative bg-white">
-<!--      <p class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">-->
-<!--        Get free delivery on orders over $100</p>-->
+      <!--      <p class="flex h-10 items-center justify-center bg-indigo-600 px-4 text-sm font-medium text-white sm:px-6 lg:px-8">-->
+      <!--        Get free delivery on orders over $100</p>-->
 
       <nav aria-label="Top" class="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8">
         <div class="border-b border-gray-200">
@@ -121,8 +78,8 @@
               </router-link>
             </div>
 
-            <div class="flex lg:ml-6">
-              <button class="p-2 text-gray-400 hover:text-gray-500" @click="appStore.toggleMobileCategories">
+            <div class="ml-3 hidden sm:block lg:hidden">
+              <button class="text-base font-medium text-gray-500 hover:text-gray-900" @click="appStore.toggleMobileCategories">
                 <span>Categories</span>
               </button>
             </div>
@@ -130,58 +87,85 @@
             <!-- Flyout menus -->
             <PopoverGroup class="hidden lg:ml-8 lg:block lg:self-stretch">
               <div class="flex h-full space-x-8">
-                <Popover v-for="category in categories" :key="category.id" class="flex" v-slot="{ open }">
+                <Popover class="flex" v-slot="{ open }">
                   <div class="relative flex">
                     <PopoverButton
-                        :class="[open ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-700 hover:text-gray-800', 'relative z-10 -mb-px flex items-center border-b-2 pt-px text-sm font-medium transition-colors duration-200 ease-out']">
-                      {{ category.title }}
+                        :class="[open ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-900', 'relative z-10 -mb-px flex items-center border-b-2 pt-px text-base font-medium transition-colors duration-200 ease-out']">
+                      Categories
                     </PopoverButton>
                   </div>
 
-                  <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0"
-                              enter-to-class="opacity-100" leave-active-class="transition ease-in duration-150"
-                              leave-from-class="opacity-100" leave-to-class="opacity-0">
+                  <Transition
+                      enter-active-class="transition ease-out duration-200"
+                      enter-from-class="opacity-0"
+                      enter-to-class="opacity-100"
+                      leave-active-class="transition ease-in duration-150"
+                      leave-from-class="opacity-100"
+                      leave-to-class="opacity-0">
                     <PopoverPanel class="absolute inset-x-0 top-full text-sm text-gray-500 z-10">
                       <div class="absolute inset-0 top-1/2 bg-white shadow" aria-hidden="true"/>
                       <div class="relative bg-white">
-                        <div class="mx-auto max-w-7xl px-8">
-                          <div class="py-8 flex flex-row-reverse justify-between">
-                            <div class="basis-1/5">
-                              <div class="group relative text-base sm:text-sm">
-                                <div
-                                    class="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
-                                  <img :src="category.photo" :alt="category.title" :title="category.title"
-                                       class="object-cover object-center"/>
-                                </div>
-                                <a :href="category.slug" class="mt-6 block font-medium text-gray-900">
-                                  <span class="absolute inset-0 z-10" aria-hidden="true"/>
-                                  {{ category.title }}
-                                </a>
-                                <p aria-hidden="true" class="mt-1">Shop now</p>
-                              </div>
+                        <div class="mx-auto max-w-7xl px-4">
+                          <div class="py-8 flex justify-between">
+                            <div class="flex xl:basis-1/5 basis-1/4">
+                              <ul>
+                                <li v-for="category in categories" :key="category.id" class="p-1.5 rounded-md"
+                                    :class="hoveredCategoryId === category.id ? 'bg-indigo-600 text-white' : 'stroke-slate-400'"
+                                    @mouseover="onCategory(category)">
+                                  <router-link :to="{ name: 'categories', params: { slug: category.slug } }"
+                                               class="flex font-semibold">
+                                    {{ category.title }}
+                                  </router-link>
+                                </li>
+                              </ul>
                             </div>
-                            <div class="gap-x-8 gap-y-3 text-sm flex flex-col flex-wrap" style="max-height: 300px">
-                              <ul role="list" v-for="subcategory in category.subcategories" :key="subcategory.id">
-                                <li>
-                                  <a href="#" :id="`${subcategory.title}-heading`" class="font-medium text-gray-900">
+                            <div class="text-sm flex flex-col flex-wrap grow" style="max-height: 300px">
+                              <ul class="flex" v-for="subcategory in hoveredCategory.subcategories"
+                                  :key="subcategory.id">
+                                <li class="flex flex-col">
+                                  <router-link :to="{ name: 'categories', params: { slug: subcategory.slug } }"
+                                               :id="`${subcategory.title}-heading`" class="font-medium text-gray-900 hover:text-gray-700">
                                     {{ subcategory.title }}
-                                  </a>
-                                  <ul role="list" :aria-labelledby="`${subcategory.title}-heading`" class="mt-2 space-y-2">
+                                  </router-link>
+                                  <ul role="list" :aria-labelledby="`${subcategory.title}-heading`"
+                                      class="my-2 space-y-2">
                                     <li v-for="item in subcategory.subcategories" :key="item.id" class="flex">
-                                      <a :href="item.slug" class="hover:text-gray-800">{{ item.title }}</a>
+                                      <a :href="item.slug" class="text-sm text-gray-500 hover:text-gray-600">{{ item.title }}</a>
                                     </li>
                                   </ul>
                                 </li>
                               </ul>
                             </div>
+                            <div class="basis-1/5 xl:block hidden">
+                              <div class="group relative text-base sm:text-sm">
+                                <div v-if="hoveredCategory.photo"
+                                     class="aspect-w-1 aspect-h-1 overflow-hidden rounded-lg bg-gray-100 group-hover:opacity-75">
+                                  <img :src="hoveredCategory.photo" :alt="hoveredCategory.title"
+                                       :title="hoveredCategory.title"
+                                       class="object-cover object-center"/>
+                                </div>
+                                <router-link :to="{ name: 'categories', params: { slug: hoveredCategory.slug } }"
+                                             class="mt-3 block font-medium text-gray-900">
+                                  <span class="absolute inset-0 z-10" aria-hidden="true"/>
+                                  {{ hoveredCategory.title }}
+                                </router-link>
+                                <p aria-hidden="true" class="mt-1">Shop now</p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </PopoverPanel>
-                  </transition>
+                  </Transition>
                 </Popover>
               </div>
             </PopoverGroup>
+
+            <div class="ml-3 hidden lg:block">
+              <router-link :to="{ name: 'goods' }" class="text-base font-medium text-gray-500 hover:text-gray-900">
+                <span>Goods</span>
+              </router-link>
+            </div>
 
             <div class="ml-auto flex items-center">
               <div v-if="!authStore.user" class="hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6">
@@ -226,23 +210,23 @@
 
               <!-- Cart -->
               <div class="ml-4 flow-root lg:ml-6">
-                <a href="#" class="group -m-2 flex items-center p-2">
+                <button @click="appStore.toggleCart" class="group -m-2 flex items-center p-2">
                   <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                    aria-hidden="true"/>
                   <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
-                  <span class="sr-only">items in cart, view bag</span>
-                </a>
+                </button>
               </div>
             </div>
           </div>
         </div>
       </nav>
     </header>
+    <Cart v-if="appStore.cart" :cart="appStore.cart" @close-cart="appStore.toggleCart" />
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import {
   Dialog,
   DialogPanel,
@@ -250,22 +234,25 @@ import {
   PopoverButton,
   PopoverGroup,
   PopoverPanel,
-  Tab,
-  TabGroup,
-  TabList,
-  TabPanel,
-  TabPanels,
   TransitionChild,
-  TransitionRoot,
+  TransitionRoot
 } from '@headlessui/vue'
 import { Bars3Icon, MagnifyingGlassIcon, ShoppingBagIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { useAuthStore } from '@/stores/auth';
 import { useAppStore } from '@/stores/app';
+import Cart from '@/components/Cart.vue';
 
-defineProps(['categories'])
-
-const open = ref(false)
+const props = defineProps(['categories'])
 
 const appStore = useAppStore()
 const authStore = useAuthStore()
+const open = ref(false)
+
+let hoveredCategoryId = ref(1)
+
+let hoveredCategory = computed(() => props.categories.find(category => category.id === hoveredCategoryId.value))
+
+function onCategory(category) {
+  hoveredCategoryId.value = category.id
+}
 </script>
