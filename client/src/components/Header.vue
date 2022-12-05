@@ -213,7 +213,7 @@
                 <button @click="appStore.toggleCart" class="group -m-2 flex items-center p-2">
                   <ShoppingBagIcon class="h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                                    aria-hidden="true"/>
-                  <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">0</span>
+                  <span class="ml-2 text-sm font-medium text-gray-700 group-hover:text-gray-800">{{ appStore.cartItemsCount }}</span>
                 </button>
               </div>
             </div>
@@ -221,12 +221,21 @@
         </div>
       </nav>
     </header>
-    <Cart v-if="appStore.cart" :cart="appStore.cart" @close-cart="appStore.toggleCart" />
+    <Cart v-if="appStore.cart"
+          :cart="appStore.cart"
+          :cart-items="appStore.cartItems"
+          :cart-items-count="appStore.cartItemsCount"
+          :cartItemsTotal="appStore.cartItemsTotal"
+          @close-cart="appStore.toggleCart"
+          @remove="(item) => appStore.removeCartItem(item)"
+          @update="(item, quantity) => appStore.updateCartItem(item, quantity)"
+          @bulk-delete="appStore.bulkDeleteCart"
+    />
   </div>
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import {
   Dialog,
   DialogPanel,
@@ -255,4 +264,9 @@ let hoveredCategory = computed(() => props.categories.find(category => category.
 function onCategory(category) {
   hoveredCategoryId.value = category.id
 }
+
+onMounted(() => {
+  appStore.getCartItemsCount();
+  appStore.getCartItems();
+})
 </script>

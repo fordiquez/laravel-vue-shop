@@ -123,12 +123,10 @@
               </Disclosure>
             </form>
 
-            <!-- Product grid -->
             <div class="lg:col-span-3">
-              <!-- Replace with your content -->
               <div v-if="goodsStore.goods.length"
                    class="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-                <a v-for="good in goodsStore.goods" :key="good.id" :href="good.slug" class="group">
+                <a v-for="good in goodsStore.goods" :key="good.id" class="group">
                   <div v-if="good.images"
                        class="relative h-80 w-full overflow-hidden rounded-lg bg-white group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1">
                     <img :src="good.images[0].src" :alt="good.title" :title="good.title"
@@ -136,9 +134,9 @@
                   </div>
                   <h3 class="mt-4 text-sm text-gray-700">{{ good.title }}</h3>
                   <p class="mt-1 text-lg font-medium text-gray-900">{{ good.price }} $</p>
+                  <button @click="appStore.addCartItem(good)">Add to cart</button>
                 </a>
               </div>
-              <!-- /End replace -->
             </div>
           </div>
         </section>
@@ -165,6 +163,7 @@ import {
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/vue/20/solid'
 import { useGoodsStore } from '@/stores/goods';
+import { useAppStore } from '@/stores/app';
 
 const sortOptions = [
   { name: 'Most Popular', href: '#', current: true },
@@ -220,6 +219,7 @@ const filters = [
 
 const mobileFiltersOpen = ref(false)
 
+const appStore = useAppStore();
 const goodsStore = useGoodsStore();
 
 onMounted(async () => {
